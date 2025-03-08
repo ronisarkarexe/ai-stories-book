@@ -8,6 +8,7 @@ import RootLayout from "./components/layout/root_layout.component";
 import DashboardLayout from "./components/dashboard/dashboard_layout.component";
 import SettingComponent from "./components/dashboard/settings/settings.component";
 import ComponentsComponent from "./components/dashboard/components/components.component";
+import StoriesComponent from "./components/stories/stories.component";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="components" element={<ComponentsComponent />} />
           <Route path="settings" element={<SettingComponent />} />
         </Route>
+        <Route path="/stories" element={<StoriesComponent />} />
         <Route path="/login" element={<LoginComponent />} />
         <Route path="/signup" element={<SignUpComponent />} />
       </Routes>
