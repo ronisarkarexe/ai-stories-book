@@ -2,6 +2,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import SSInput from "../ui-component/ss-input/ss-input";
 import SSButton from "../ui-component/ss-button/ss-button";
 import { useState } from "react";
+import { useLoginUserMutation } from "../../redux/apis/auth.api";
+import { storeUserInfo } from "../../services/auth.service";
+import RedirectComponent from "../redirect.component";
+import toast, { Toaster } from "react-hot-toast";
 
 type Inputs = {
   name: string;
@@ -11,16 +15,30 @@ type Inputs = {
 };
 
 const LoginComponent = () => {
+  const [loginUser] = useLoginUserMutation();
   const { register, handleSubmit } = useForm<Inputs>();
   const [isBusy, setIsBusy] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsBusy(true);
-    console.log(data);
-    setTimeout(() => {
+    try {
+      const res = await loginUser({ ...data }).unwrap();
+      if (res.accessToken) {
+        toast.success("User logged in successfully!");
+        storeUserInfo({ accessToken: res.accessToken });
+        setIsLoggedIn(true);
+      }
+    } catch (err: unknown) {
+      console.log("error: ", err);
+    } finally {
       setIsBusy(false);
-    }, 2000);
+    }
   };
+
+  if (isLoggedIn) {
+    return <RedirectComponent defaultPath="/" />;
+  }
 
   return (
     <div className="bg-slate-700 text-white min-h-screen">
@@ -67,6 +85,7 @@ const LoginComponent = () => {
           </p>
         </div>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
