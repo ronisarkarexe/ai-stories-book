@@ -32,8 +32,7 @@ instance.interceptors.response.use(
       data: response.data.data,
       meta: response.data.meta,
       status: response.status,
-      statusText: response.statusText,
-      message: response.message,
+      statusText: response.message as string,
       headers: response.headers as AxiosResponseHeaders,
       config: response.config,
     };

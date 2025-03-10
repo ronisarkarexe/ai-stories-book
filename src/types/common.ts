@@ -11,7 +11,6 @@ export interface ResponseSuccessType<T = unknown> {
   meta?: IMeta;
   status: number;
   statusText: string;
-  message: string;
   headers: AxiosResponseHeaders;
   config: AxiosRequestConfig;
 }
