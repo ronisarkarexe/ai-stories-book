@@ -1,42 +1,65 @@
-import React, { useState } from "react";
-import { getShortenedText, topicsData } from "./stories.utils";
+import React, { useEffect, useState } from "react";
+import { getShortenedText, ITopicData, topicsData } from "./stories.utils";
+import toast, { Toaster } from "react-hot-toast";
 
-const stories = [
-  {
-    id: 1,
-    title: "The Whispering Walls",
-    content:
-      "Flora traced the faded wallpaper in her grandmother's attic, a curious bump beneath her fingers. Pushing against it, a section of the wall swung inward, revealing a dusty, arched doorway. It wasn't a closet; it was a tunnel swirling with emerald mist.  Heart pounding, Flora stepped through.  The air hummed with strange music, and the tunnel opened into a meadow bathed in violet sunlight. Crystal trees swayed in the breeze, their branches laden with glowing fruit.  A tiny, winged creature with iridescent scales flitted past her nose, chirping a melody. Fear gave way to wonder. This wasn't her grandmother's attic anymore. It was something magical, something…other.",
-    tag: "fantasy",
-    imageURL:
-      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxmYW50YXN5fGVufDB8fHx8MTc0MTA3ODI3OHww&ixlib=rb-4.0.3&q=80&w=1080",
-  },
-  {
-    id: 2,
-    title: "The Clockwork Kingdom",
-    content:
-      'Leo hated dusting. But Mom insisted he clean the old grandfather clock in the hall.  Grumbling, he opened the clock\'s lower door, expecting to find cobwebs. Instead, he saw spiraling gears and gleaming brass, leading down like a slide.  Driven by curiosity, he slid down.  The gears whirred and clicked, depositing him in a vast room filled with intricate clockwork mechanisms.  Tiny, metal figures moved with precise, jerky motions, tending to the gears.  A figure with a brass head and a waistcoat approached Leo. "Welcome to Chronos," it chirped. "We\'ve been expecting you."',
-    tag: "steampunk",
-    imageURL:
-      "https://images.unsplash.com/photo-1559590836-9eb74007ab44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxzdGVhbXB1bmt8ZW58MHx8fHwxNzQxMDc4Mjc4fDA&ixlib=rb-4.0.3&q=80&w=1080",
-  },
-];
-
-interface IStories {
-  id: number;
+export interface IStories {
+  id: string;
   title: string;
   content: string;
   tag: string;
   imageURL: string;
 }
 
-const StoriesViewComponent = () => {
+interface IPost extends IStories {
+  topics: ITopicData[];
+}
+
+interface StoriesComponentProps {
+  stories: IStories[];
+  isLogin: boolean;
+  setStories: (stories: IStories[]) => void;
+}
+
+const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
+  stories,
+  isLogin,
+  setStories,
+}) => {
   const [selectedStory, setSelectedStory] = useState<IStories | null>(
     stories[0]
   );
+  const [topics, setTopics] = useState<ITopicData[]>(topicsData);
+  const [selectTopics, setSelectTopics] = useState<ITopicData[]>([]);
+
+  useEffect(() => {
+    setSelectTopics(topics.filter((topic) => topic.selected));
+  }, [topics]);
 
   const handelStorySelection = (story: IStories) => {
     setSelectedStory(story);
+  };
+
+  const handleTopicClick = (index: number) => {
+    const updatedTopics = [...topics];
+    updatedTopics[index].selected = !updatedTopics[index].selected;
+    setTopics(updatedTopics);
+  };
+
+  const handelPublishStory = () => {
+    if (!isLogin) {
+      toast.error("Please login to publish the story.");
+      return;
+    }
+    if (!selectedStory) {
+      toast.error("No story available. Please generate a story first.");
+      return;
+    }
+    const post: IPost = {
+      ...selectedStory,
+      topics: selectTopics,
+    };
+
+    console.log("post for publish", post);
   };
 
   return (
@@ -50,20 +73,26 @@ const StoriesViewComponent = () => {
               </h1>
             </div>
             <div className="flex justify-end mb-4">
-              <div className="flex -space-x-5 ">
-                {stories.map((story) => (
-                  <button
-                    key={story.id}
-                    className="relative w-16 h-16 rounded-full border-2 border-white hover:scale-110 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-fuchsia-600"
-                    onClick={() => handelStorySelection(story)}
-                  >
-                    <img
-                      src={story.imageURL}
-                      alt={story.title}
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </button>
-                ))}
+              <div className="flex -space-x-5">
+                {stories.length > 0 ? (
+                  stories.map((story) => (
+                    <button
+                      key={story.id}
+                      className="relative w-16 h-16 rounded-full border-2 border-white hover:scale-110 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-fuchsia-600"
+                      onClick={() => handelStorySelection(story)}
+                    >
+                      <img
+                        src={story.imageURL}
+                        alt={story.title}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </button>
+                  ))
+                ) : (
+                  <div className="text-gray-300">
+                    No stories available. Please generate some stories first.
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -74,13 +103,20 @@ const StoriesViewComponent = () => {
                 Generated Story
               </h3>
               <span className="text-sm text-gray-800">
-                <button className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 group">
+                <button
+                  className={`rounded-lg px-4 py-1 font-semibold flex items-center space-x-2 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white`}
+                  onClick={handelPublishStory}
+                >
                   <span>Publish</span>
                 </button>
               </span>
             </div>
             <div className="prose max-w-none text-gray-300">
-              <p>{selectedStory?.content}</p>
+              {selectedStory ? (
+                <p>{selectedStory.content}</p>
+              ) : (
+                <p>No story available. Please generate a story first.</p>
+              )}
             </div>
           </div>
           <div className="mt-7">
@@ -89,12 +125,18 @@ const StoriesViewComponent = () => {
                 Select Topics
               </h3>
               <div className="flex flex-wrap gap-2">
-                {topicsData.map((topic, index) => (
+                {topics.map((topic, index) => (
                   <span
                     key={index}
-                    className={`px-3 py-1 ${topic.color} rounded-full text-sm hover:bg-blue-200`}
+                    className={`px-3 py-1 ${topic.color} rounded-full text-sm hover:bg-blue-200 cursor-pointer`}
+                    onClick={() => handleTopicClick(index)}
                   >
-                    <i className="fa-solid fa-plus"></i> {topic.title}
+                    {topic.selected ? (
+                      <i className="fa-solid fa-check"></i>
+                    ) : (
+                      <i className="fa-solid fa-plus"></i>
+                    )}{" "}
+                    {topic.title}
                   </span>
                 ))}
               </div>
@@ -109,29 +151,36 @@ const StoriesViewComponent = () => {
             </h1>
           </div>
           <div className="bg-slate-600 border border-gray-400 rounded-lg shadow-lg">
-            <div className="relative flex flex-col rounded-lg">
-              <div className="relative m-2.5 overflow-hidden text-white rounded-md">
-                <img
-                  src={selectedStory?.imageURL}
-                  alt="card-image"
-                  className="w-full h-40 object-cover rounded-b-md"
-                />
-              </div>
-              <div className="px-3 py-1">
-                <div className="mb-2 rounded-full bg-cyan-600 py-0.5 px-2.5 border border-transparent text-xs text-white transition-all shadow-sm w-20 text-center">
-                  {selectedStory?.tag.toUpperCase()}
+            {selectedStory ? (
+              <div className="relative flex flex-col rounded-lg">
+                <div className="relative m-2.5 overflow-hidden text-white rounded-md">
+                  <img
+                    src={selectedStory.imageURL}
+                    alt="card-image"
+                    className="w-full h-40 object-cover rounded-b-md"
+                  />
                 </div>
-                <h6 className="mb-1 text-slate-800 text-xl font-semibold">
-                  {selectedStory?.title}
-                </h6>
-                <p className="text-gray-300 font-light">
-                  {getShortenedText(selectedStory?.content)}
-                </p>
+                <div className="px-3 py-1">
+                  <div className="mb-2 rounded-full bg-cyan-600 py-0.5 px-2.5 border border-transparent text-xs text-white transition-all shadow-sm w-20 text-center">
+                    {selectedStory.tag.toUpperCase()}
+                  </div>
+                  <h6 className="mb-1 text-slate-800 text-xl font-semibold">
+                    {selectedStory.title}
+                  </h6>
+                  <p className="text-gray-300 font-light">
+                    {getShortenedText(selectedStory.content)}
+                  </p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-6 text-center text-gray-300">
+                No story available. Please generate a story first.
+              </div>
+            )}
           </div>
         </div>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

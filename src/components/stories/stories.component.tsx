@@ -1,10 +1,32 @@
-import React from "react";
-import StoriesViewComponent from "./stories.view.component";
+import React, { useState } from "react";
+import StoriesViewComponent, { IStories } from "./stories.view.component";
 import { Link } from "react-router-dom";
 import { getUserInfo, isLoggedIn } from "../../services/auth.service";
 import { getRequestLimit } from "./stories.utils";
 
+const storie = [
+  {
+    id: "1",
+    title: "The Whispering Walls",
+    content:
+      "Flora traced the faded wallpaper in her grandmother's attic, a curious bump beneath her fingers. Pushing against it, a section of the wall swung inward, revealing a dusty, arched doorway. It wasn't a closet; it was a tunnel swirling with emerald mist.  Heart pounding, Flora stepped through.  The air hummed with strange music, and the tunnel opened into a meadow bathed in violet sunlight. Crystal trees swayed in the breeze, their branches laden with glowing fruit.  A tiny, winged creature with iridescent scales flitted past her nose, chirping a melody. Fear gave way to wonder. This wasn't her grandmother's attic anymore. It was something magical, something…other.",
+    tag: "fantasy",
+    imageURL:
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxmYW50YXN5fGVufDB8fHx8MTc0MTA3ODI3OHww&ixlib=rb-4.0.3&q=80&w=1080",
+  },
+  {
+    id: "2",
+    title: "The Clockwork Kingdom",
+    content:
+      'Leo hated dusting. But Mom insisted he clean the old grandfather clock in the hall.  Grumbling, he opened the clock\'s lower door, expecting to find cobwebs. Instead, he saw spiraling gears and gleaming brass, leading down like a slide.  Driven by curiosity, he slid down.  The gears whirred and clicked, depositing him in a vast room filled with intricate clockwork mechanisms.  Tiny, metal figures moved with precise, jerky motions, tending to the gears.  A figure with a brass head and a waistcoat approached Leo. "Welcome to Chronos," it chirped. "We\'ve been expecting you."',
+    tag: "steampunk",
+    imageURL:
+      "https://images.unsplash.com/photo-1559590836-9eb74007ab44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxzdGVhbXB1bmt8ZW58MHx8fHwxNzQxMDc4Mjc4fDA&ixlib=rb-4.0.3&q=80&w=1080",
+  },
+];
+
 const StoriesComponent = () => {
+  const [stories, setStories] = useState<IStories[]>(storie);
   const userRole = getUserInfo();
   const login = isLoggedIn();
 
@@ -56,7 +78,7 @@ const StoriesComponent = () => {
           </div>
         </div>
       </div>
-      <StoriesViewComponent />
+      <StoriesViewComponent stories={stories} isLogin={login} setStories={setStories}/>
     </div>
   );
 };

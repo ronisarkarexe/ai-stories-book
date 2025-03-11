@@ -23,12 +23,46 @@ export const getRequestLimit = (subscriptionType: string) => {
   }
 };
 
-export const topicsData = [
-  { title: "#AIWriting", color: "bg-blue-100 text-blue-800" },
-  { title: "#StoryGeneration", color: "bg-purple-100 text-purple-800" },
-  { title: "#Writing", color: "bg-blue-100 text-blue-800" },
-  { title: "#Creativity", color: "bg-green-100 text-green-800" },
-  { title: "#DigitalMarketing", color: "bg-yellow-100 text-yellow-800" },
-  { title: "#Storytelling", color: "bg-purple-100 text-purple-800" },
-  { title: "#Productivity", color: "bg-red-100 text-red-800" },
+export const doPublishAccessibility = (subscriptionType: string) => {
+  if (
+    subscriptionType === "free" ||
+    subscriptionType === "pro" ||
+    subscriptionType === "premium"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export interface ITopicData {
+  title: string;
+  color: string;
+  selected: boolean;
+}
+
+export const topicsData: ITopicData[] = [
+  { title: "#AIWriting", color: "bg-blue-100 text-blue-800", selected: true },
+  {
+    title: "#StoryGeneration",
+    color: "bg-purple-100 text-purple-800",
+    selected: true,
+  },
+  { title: "#Writing", color: "bg-blue-100 text-blue-800", selected: false },
+  {
+    title: "#Creativity",
+    color: "bg-green-100 text-green-800",
+    selected: false,
+  },
+  {
+    title: "#DigitalMarketing",
+    color: "bg-yellow-100 text-yellow-800",
+    selected: false,
+  },
+  {
+    title: "#Storytelling",
+    color: "bg-purple-100 text-purple-800",
+    selected: false,
+  },
+  { title: "#Productivity", color: "bg-red-100 text-red-800", selected: false },
 ];
