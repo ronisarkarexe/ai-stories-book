@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getShortenedText } from "./stories.utils";
+import { getShortenedText, topicsData } from "./stories.utils";
 
 const stories = [
   {
@@ -19,24 +19,6 @@ const stories = [
     tag: "steampunk",
     imageURL:
       "https://images.unsplash.com/photo-1559590836-9eb74007ab44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxzdGVhbXB1bmt8ZW58MHx8fHwxNzQxMDc4Mjc4fDA&ixlib=rb-4.0.3&q=80&w=1080",
-  },
-  {
-    id: 3,
-    title: "The Sunken City",
-    content:
-      "Maya loved rainy days.  Exploring the flooded basement of her old house was her favorite pastime.  One particularly stormy day, she discovered a loose brick in the wall, revealing a dark hole.  Intrigued, she waded closer.  The hole widened, revealing a shimmering, underwater passage. Holding her breath, Maya plunged into the passage. She emerged into a breathtaking underwater city, illuminated by bioluminescent coral. Strange, fish-like humanoids swam through the streets, their scales catching the light. Maya marveled at the sight, her fear forgotten.  This wasn't just a flooded basement. It was Atlantis, brought to life.",
-    tag: "aquatic",
-    imageURL:
-      "https://images.unsplash.com/photo-1619458845477-d3c58085beea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxhcXVhdGljfGVufDB8fHx8MTc0MTA3ODI3OHww&ixlib=rb-4.0.3&q=80&w=1080",
-  },
-  {
-    id: 4,
-    title: "The Shadow Forest",
-    content:
-      "Ethan followed his runaway dog, Buster, into the dense woods behind his house. Buster disappeared into a thicket of thorny bushes. Ethan followed, pushing aside the branches.  He stumbled into a clearing, but Buster was gone.  In his place stood a towering oak tree, its trunk hollow and dark.  A faint whisper echoed from within. Drawn by an unseen force, Ethan stepped inside. The darkness consumed him, and he felt himself falling, falling…  He landed softly on mossy ground. Above him, the sky was a swirling vortex of purple and green.  Giant mushrooms glowed in the twilight, and shadowy figures flitted between the trees.  This was no ordinary forest. This was the land of shadows.",
-    tag: "dark fantasy",
-    imageURL:
-      "https://images.unsplash.com/photo-1505635552518-3448ff116af3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MTc0MjN8MHwxfHNlYXJjaHwxfHxkYXJrJTIwZmFudGFzeXxlbnwwfHx8fDE3NDEwNzgyNzh8MA&ixlib=rb-4.0.3&q=80&w=1080",
   },
 ];
 
@@ -86,18 +68,36 @@ const StoriesViewComponent = () => {
             </div>
           </div>
 
-          <div className="bg-gray-400 p-6 rounded-lg shadow-lg">
+          <div className="bg-slate-600 border border-gray-400 p-6 rounded-lg shadow-lg">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold">Generated Story</h3>
-              <span className="text-sm text-gray-800">400 Words</span>
+              <h3 className="text-xl font-semibold text-slate-800">
+                Generated Story
+              </h3>
               <span className="text-sm text-gray-800">
                 <button className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 group">
                   <span>Publish</span>
                 </button>
               </span>
             </div>
-            <div className="prose max-w-none">
+            <div className="prose max-w-none text-gray-300">
               <p>{selectedStory?.content}</p>
+            </div>
+          </div>
+          <div className="mt-7">
+            <div className="bg-slate-600 border border-gray-400 rounded-lg shadow-sm p-6 mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Select Topics
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {topicsData.map((topic, index) => (
+                  <span
+                    key={index}
+                    className={`px-3 py-1 ${topic.color} rounded-full text-sm hover:bg-blue-200`}
+                  >
+                    <i className="fa-solid fa-plus"></i> {topic.title}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -108,7 +108,7 @@ const StoriesViewComponent = () => {
               Preview
             </h1>
           </div>
-          <div className="bg-gray-400 rounded-lg shadow-lg">
+          <div className="bg-slate-600 border border-gray-400 rounded-lg shadow-lg">
             <div className="relative flex flex-col rounded-lg">
               <div className="relative m-2.5 overflow-hidden text-white rounded-md">
                 <img
@@ -124,7 +124,7 @@ const StoriesViewComponent = () => {
                 <h6 className="mb-1 text-slate-800 text-xl font-semibold">
                   {selectedStory?.title}
                 </h6>
-                <p className="text-slate-600 leading-normal font-light">
+                <p className="text-gray-300 font-light">
                   {getShortenedText(selectedStory?.content)}
                 </p>
               </div>
