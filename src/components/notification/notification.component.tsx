@@ -1,5 +1,6 @@
 import React from "react";
 import { NotificationResponse } from "../../models/notification";
+import { getNotificationIcon } from "./notification.utils";
 
 interface INotificationComponentProps {
   notifications: NotificationResponse[];
@@ -12,7 +13,6 @@ const NotificationComponent: React.FC<INotificationComponentProps> = ({
   showNotification,
   setShowNotification,
 }) => {
-  console.log("notifications bar", notifications);
   return (
     <div className="fixed inset-y-0 right-0 bg-slate-900 w-96 shadow-xl transform transition-transform duration-300 translate-x-0 z-50 ">
       <div className="h-full flex flex-col">
@@ -31,38 +31,50 @@ const NotificationComponent: React.FC<INotificationComponentProps> = ({
         </div>
         <div className="flex-1 overflow-y-auto p-4">
           <div className="mb-6">
-            <div className="flex items-start space-x-4">
-              <div className="w-full p-3 mt-1 bg-blue-500/20 rounded flex">
-                <div
-                  aria-label="post icon"
-                  role="img"
-                  className="focus:outline-none w-8 h-8 border rounded-full border-gray-200 flex items-center justify-center"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4.30325 12.6667L1.33325 15V2.66667C1.33325 2.48986 1.40349 2.32029 1.52851 2.19526C1.65354 2.07024 1.82311 2 1.99992 2H13.9999C14.1767 2 14.3463 2.07024 14.4713 2.19526C14.5963 2.32029 14.6666 2.48986 14.6666 2.66667V12C14.6666 12.1768 14.5963 12.3464 14.4713 12.4714C14.3463 12.5964 14.1767 12.6667 13.9999 12.6667H4.30325ZM5.33325 6.66667V8H10.6666V6.66667H5.33325Z"
-                      fill="#4338CA"
-                    />
-                  </svg>
-                </div>
-                <div className="pl-3">
-                  <p className="focus:outline-none text-sm leading-none">
-                    <span className="text-indigo-700">Sarah</span> posted in the
-                    thread:{" "}
-                    <span className="text-indigo-700">Update gone wrong</span>
-                  </p>
-                  <p className="focus:outline-none text-xs leading-3 pt-1 text-gray-500">
-                    2 hours ago
-                  </p>
-                </div>
+            {notifications.length > 0 ? (
+              <div className="space-y-4">
+                {notifications.map((notify) => {
+                  const { icon, textColor } = getNotificationIcon(
+                    notify.type
+                  );
+                  return (
+                    <div
+                      key={notify._id}
+                      className={`w-full p-3 mt-1 bg-blue-500/20 rounded flex`}
+                    >
+                      <div
+                        aria-label="post icon"
+                        role="img"
+                        className={`focus:outline-none w-8 h-8 border rounded-full border-gray-400 flex items-center justify-center`}
+                      >
+                        <i className={`fa-solid ${icon} ${textColor}`}></i>
+                      </div>
+                      <div className="pl-3">
+                        <p
+                          className={`focus:outline-none text-sm leading-none ${textColor}`}
+                        >
+                          {notify.data.title}
+                        </p>
+                        <p
+                          className={`focus:outline-none text-sm leading-none ${textColor} mt-1`}
+                        >
+                          {notify.data.message}
+                        </p>
+                        <p className="focus:outline-none text-xs leading-3 pt-1 text-gray-500">
+                          2 hours ago
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
+            ) : (
+              <div>
+                <span className="text-gray-400">
+                  No Notification available!
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

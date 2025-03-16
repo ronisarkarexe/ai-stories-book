@@ -2,10 +2,12 @@ import React from "react";
 
 interface INavListComponentProps {
   setShowNotification: (value: boolean) => void;
+  newNotify: number;
 }
 
 const NavListComponent: React.FC<INavListComponentProps> = ({
   setShowNotification,
+  newNotify,
 }) => {
   return (
     <div className="relative z-10 mx-auto max-w-8xl px-5 py-4">
@@ -44,7 +46,7 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
               <i className="fas fa-search"></i>
             </button>
             <div className="ml-3 relative">
-              <div>
+              <div className="relative inline-flex">
                 <button
                   type="button"
                   className="!rounded-button p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none"
@@ -52,6 +54,9 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
                 >
                   <i className="fa-solid fa-bell"></i>
                 </button>
+                <span className="absolute top-0.5 right-0.5 grid min-h-[18px] min-w-[18px] translate-x-2/4 -translate-y-2/4 place-items-center rounded-full bg-red-700 text-xs text-white">
+                  {newNotify}
+                </span>
               </div>
             </div>
             <div className="ml-3 relative">
