@@ -31,7 +31,7 @@ const StoriesComponent = () => {
   const login = isLoggedIn();
 
   return (
-    <div className="bg-gradient-to-br from-slate-600 via-custom to-slate-800 animate-gradient-slow min-h-screen">
+    <div className="bg-gradient-to-br animate-gradient-slow min-h-screen">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="py-6 flex items-center justify-between">
           <Link to="/">
@@ -64,7 +64,7 @@ const StoriesComponent = () => {
             <div className=" bg-slate-600 rounded-md p-4 border border-gray-400">
               <div className="relative">
                 <textarea
-                  className="w-full h-40 resize-none border-none outline-none bg-transparent text-white placeholder-gray-300 focus:ring-0 text-lg leading-relaxed tracking-wide placeholder:italic placeholder:text-gray-400 font-[Poppins] md:font-[Inter]"
+                  className="w-full h-40 resize-none border-none outline-none bg-transparent text-white focus:ring-0 text-lg leading-relaxed tracking-wide placeholder:italic placeholder:text-gray-400 font-[Poppins] md:font-[Inter]"
                   placeholder="Every great story begins with a single idea. What’s yours?"
                 ></textarea>
                 <div className="absolute bottom-3 right-3 flex items-center space-x-2">
@@ -78,7 +78,12 @@ const StoriesComponent = () => {
           </div>
         </div>
       </div>
-      <StoriesViewComponent stories={stories} isLogin={login} setStories={setStories}/>
+      <StoriesViewComponent
+        stories={stories}
+        isLogin={login}
+        setStories={setStories}
+      />
+      <div className="absolute top-[-200px] left-[250px] w-[800px] h-[350px] bg-blue-500/20 rounded-full blur-3xl -z-10"></div>
     </div>
   );
 };

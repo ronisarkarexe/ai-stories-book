@@ -1,39 +1,38 @@
+import { useState } from "react";
 import logo from "../../assets/logo.png";
-import { getUserInfo } from "../../services/auth.service";
 
 const TopHeaderComponent = () => {
-  const user = getUserInfo();
-  console.log(user?.email);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
   return (
-    <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <nav className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <a href="/" className="flex-shrink-0">
-                <img className="h-9 w-auto" src={logo} alt="logo" />
+    <div className="sticky top-0 z-50">
+      <div className="relative z-10 mx-auto max-w-8xl px-6 py-4 gradient-bg">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-16">
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="/" className="flex items-center space-x-2">
+                <img src={logo} alt="Logo" className="h-8 w-auto" />
+              </a>
+              <a href="/" className="text-white hover:text-custom transition">
+                HOME
               </a>
               <a
-                href="#"
-                className="border-custom text-custom inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                href="/http_codes"
+                className="text-white hover:text-custom transition"
               >
-                Home
+                EXPLORE
               </a>
               <a
-                href="#"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                href="/repos"
+                className="text-white hover:text-custom transition"
               >
-                Explore
-              </a>
-              <a
-                href="#"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Categories
+                CATEGORIES
               </a>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
+            <button className="!rounded-button bg-blue hover:bg-blue text-white px-6 py-2 font-medium transition-all">
+              JOIN
+            </button>
             <div className="hidden sm:ml-6 sm:flex sm:items-center">
               <button
                 type="button"
@@ -46,6 +45,7 @@ const TopHeaderComponent = () => {
                   <button
                     type="button"
                     className="!rounded-button p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none"
+                    onClick={() => setShowNotification(true)}
                   >
                     <i className="fa-solid fa-bell"></i>
                   </button>
@@ -68,7 +68,8 @@ const TopHeaderComponent = () => {
             </div>
           </div>
         </div>
-      </nav>
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-500/20 rounded-full blur-3xl -z-10"></div>
+      </div>
     </div>
   );
 };

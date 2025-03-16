@@ -2,7 +2,7 @@ import React from "react";
 
 const FeatureProfileComponent = () => {
   return (
-    <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
+    <section className="bg-blue-500/20 rounded-lg shadow-sm p-6 mb-8">
       <div className="flex items-center mb-6">
         <img
           className="h-16 w-16 rounded-full"
@@ -10,7 +10,7 @@ const FeatureProfileComponent = () => {
           alt=""
         />
         <div className="ml-4">
-          <h3 className="text-lg font-semibold text-gray-900">David Smith</h3>
+          <h3 className="text-lg font-semibold text-gray-400">David Smith</h3>
           <p className="text-sm text-gray-500">@davidsmith</p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import TopHeaderComponent from "../top_header/top_header.component";
+// import TopHeaderComponent from "../top_header/top_header.component";
 import FooterComponent from "../footer/footer.component";
 
 interface RootLayoutProps {
@@ -9,7 +9,7 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <>
-      <TopHeaderComponent />
+      {/* <TopHeaderComponent /> */}
       <div className="min-h-screen">{children}</div>
       <FooterComponent />
     </>

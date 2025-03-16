@@ -2,10 +2,10 @@ import React from "react";
 
 const WriterFeedbackComponent = () => {
   return (
-    <section className="mb-16 bg-white py-12">
+    <section className="mb-16 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-bold text-gray-500">
             What Our Writers Say
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -13,7 +13,7 @@ const WriterFeedbackComponent = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl transform transition-transform hover:scale-105">
+          <div className="bg-blue-950/60 p-6 rounded-xl transform transition-transform hover:scale-105">
             <div className="flex items-center mb-4">
               <img
                 className="h-12 w-12 rounded-full ring-4 ring-white"
@@ -32,7 +32,7 @@ const WriterFeedbackComponent = () => {
               content. It&#39;s like having a creative partner!&#34;
             </p>
           </div>
-          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl transform transition-transform hover:scale-105">
+          <div className="bg-blue-950/60 p-6 rounded-xl transform transition-transform hover:scale-105">
             <div className="flex items-center mb-4">
               <img
                 className="h-12 w-12 rounded-full ring-4 ring-white"
@@ -51,7 +51,7 @@ const WriterFeedbackComponent = () => {
               Highly recommended!&#34;
             </p>
           </div>
-          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl transform transition-transform hover:scale-105">
+          <div className="bg-blue-950/60 p-6 rounded-xl transform transition-transform hover:scale-105">
             <div className="flex items-center mb-4">
               <img
                 className="h-12 w-12 rounded-full ring-4 ring-white"
@@ -70,7 +70,7 @@ const WriterFeedbackComponent = () => {
               with an amazing community of writers.&#34;
             </p>
           </div>
-          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-xl transform transition-transform hover:scale-105">
+          <div className="bg-blue-950/60 p-6 rounded-xl transform transition-transform hover:scale-105">
             <div className="flex items-center mb-4">
               <img
                 className="h-12 w-12 rounded-full ring-4 ring-white"

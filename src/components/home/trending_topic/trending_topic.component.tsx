@@ -2,8 +2,8 @@ import React from "react";
 
 const TrendingTopicComponent = () => {
   return (
-    <section className="bg-white rounded-lg shadow-sm p-6 mb-8">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+    <section className="bg-blue-500/20 rounded-lg shadow-sm p-6 mb-8">
+      <h3 className="text-lg font-semibold text-gray-400 mb-4">
         Trending Topics
       </h3>
       <div className="flex flex-wrap gap-2">

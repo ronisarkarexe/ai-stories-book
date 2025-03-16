@@ -10,7 +10,7 @@ import StartWritingComponent from "./start_writing/start_writing.component";
 
 const HomeComponent = () => {
   return (
-    <div className="">
+    <>
       <div className="grid grid-cols-12 gap-8 px-5 mb-10">
         <div className="col-span-12 lg:col-span-8">
           <FeatureComponent />
@@ -28,7 +28,7 @@ const HomeComponent = () => {
       <WriterFeedbackComponent />
       <PricingComponent />
       <StartWritingComponent />
-    </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ const PricingComponent = () => {
   return (
     <section className="mb-16 py-12" id="pricing-section">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900">
+        <h2 className="text-3xl font-bold text-white">
           Simple, Transparent Pricing
         </h2>
         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -12,7 +12,7 @@ const PricingComponent = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-blue-500/20 p-8 rounded-lg shadow-sm border border-gray-200">
           <h3 className="text-xl font-semibold mb-2">Free</h3>
           <div className="mb-4">
             <span className="text-4xl font-bold">$0</span>
@@ -36,7 +36,7 @@ const PricingComponent = () => {
             Get Started
           </button>
         </div>
-        <div className="bg-white p-8 rounded-lg shadow-sm border border-indigo-600 relative transform scale-105">
+        <div className="bg-blue-500/20 p-8 rounded-lg shadow-sm border border-indigo-600 relative transform scale-105">
           <div className="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg">
             Popular
           </div>
@@ -67,7 +67,7 @@ const PricingComponent = () => {
             Start Pro Trial
           </button>
         </div>
-        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-blue-500/20 p-8 rounded-lg shadow-sm border border-gray-200">
           <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
           <div className="mb-4">
             <span className="text-4xl font-bold">$49</span>
