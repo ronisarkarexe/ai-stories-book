@@ -12,4 +12,6 @@ export const menuItems: MenuItem[] = [
     path: "/dashboard/components",
   },
   { name: "Settings", icon: "fas fa-cog", path: "/dashboard/settings" },
+  { name: "Users", icon: "fas fa-users", path: "/dashboard/users" },
+  { name: "Writers", icon: "fas fa-cog", path: "/dashboard/writers" },
 ];

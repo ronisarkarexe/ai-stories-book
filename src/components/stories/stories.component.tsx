@@ -45,9 +45,13 @@ const StoriesComponent = () => {
             </div>
           )}
           <button className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
-            <span>{getRequestLimit(userRole?.subscriptionType as string)}</span>
-            <i className="fas fa-bolt text-yellow-400"></i>
+            <span>
+              {" "}
+              <span className="text-gray-400">Per Month</span>{" "}
+              {getRequestLimit(userRole?.subscriptionType as string)}
+            </span>
             <span className="border-l border-white/20 pl-2">Upgrade</span>
+            <i className="fas fa-bolt text-yellow-400"></i>
           </button>
         </header>
 

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { isLoggedIn, removeUserInfo } from "../../services/auth.service";
+import { Link } from "react-router-dom";
 
 interface INavListComponentProps {
   setShowNotification: (value: boolean) => void;
@@ -9,13 +11,21 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
   setShowNotification,
   newNotify,
 }) => {
+  const [isLogin, setIsLogin] = useState<boolean>(isLoggedIn());
+
+  const handelLogout = () => {
+    removeUserInfo();
+    setIsLogin(false);
+  };
+
+  useEffect(() => {
+    setIsLogin(isLoggedIn());
+  }, []);
+
   return (
     <div className="relative z-10 mx-auto max-w-8xl px-5 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-16">
-          <a href="/" className="flex items-center space-x-2">
-            <img src="" alt="Logo" className="h-8 w-auto" />
-          </a>
           <div className="hidden md:flex items-center space-x-8">
             <a href="/" className="text-white hover:text-custom transition">
               HOME
@@ -32,12 +42,17 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
             >
               CATEGORIES
             </a>
+            {isLogin && (
+              <a
+                href="/dashboard"
+                className="text-white hover:text-custom transition"
+              >
+                DASHBOARD
+              </a>
+            )}
           </div>
         </div>
         <div className="flex items-center space-x-4">
-          {/* <button className="!rounded-button bg-blue hover:bg-blue text-white px-6 py-2 font-medium transition-all">
-            JOIN
-          </button> */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <button
               type="button"
@@ -60,18 +75,20 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
               </div>
             </div>
             <div className="ml-3 relative">
-              <div>
+              {isLogin ? (
                 <button
-                  type="button"
-                  className="!rounded-button flex text-sm rounded-full focus:outline-none"
+                  onClick={handelLogout}
+                  className="!rounded-button bg-blue hover:bg-blue text-white px-6 py-2 font-medium transition-all cursor-pointer"
                 >
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://avatars.githubusercontent.com/u/76697055?v=4"
-                    alt="profile"
-                  />
+                  LOGOUT
                 </button>
-              </div>
+              ) : (
+                <Link to="/login">
+                  <button className="!rounded-button bg-blue hover:bg-blue text-white px-6 py-2 font-medium transition-all cursor-pointer">
+                    LOGIN
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
