@@ -1,54 +1,22 @@
 import React from "react";
+import { topicsData } from "../../stories/stories.utils";
 
 const TrendingTopicComponent = () => {
   return (
-    <section className="bg-blue-500/20 rounded-lg shadow-sm p-6 mb-8">
-      <h3 className="text-lg font-semibold text-gray-400 mb-4">
+    <section className="bg-blue-500/10 rounded-lg shadow-sm p-6 mb-8">
+      <h3 className="text-lg font-semibold text-gray-300 mb-4">
         Trending Topics
       </h3>
       <div className="flex flex-wrap gap-2">
-        <a
-          href="#"
-          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm hover:bg-blue-200"
-        >
-          #AIWriting
-        </a>
-        <a
-          href="#"
-          className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm hover:bg-purple-200"
-        >
-          #StoryGeneration
-        </a>
-        <a
-          href="#"
-          className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200"
-        >
-          #Writing
-        </a>
-        <a
-          href="#"
-          className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200"
-        >
-          #Creativity
-        </a>
-        <a
-          href="#"
-          className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200"
-        >
-          #DigitalMarketing
-        </a>
-        <a
-          href="#"
-          className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200"
-        >
-          #Storytelling
-        </a>
-        <a
-          href="#"
-          className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm hover:bg-gray-200"
-        >
-          #Productivity
-        </a>
+        {topicsData.map((topic, index) => (
+          <a
+            key={index}
+            href="#"
+            className={`px-3 py-1 ${topic.color} rounded-full text-sm hover:bg-blue-200`}
+          >
+            {topic.title}
+          </a>
+        ))}
       </div>
     </section>
   );

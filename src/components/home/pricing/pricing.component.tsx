@@ -1,100 +1,95 @@
 import React from "react";
 
+const pricingPlans = [
+  {
+    title: "Free",
+    price: "$0",
+    duration: "/month",
+    features: [
+      "Basic AI writing assistance",
+      "5 stories per month",
+      "Community access",
+    ],
+    buttonLabel: "Get Started",
+    buttonStyle: "bg-gray-500 text-gray-300 hover:bg-gray-600",
+    highlight: false,
+  },
+  {
+    title: "Pro",
+    price: "$19",
+    duration: "/month",
+    features: [
+      "Advanced AI writing tools",
+      "Unlimited stories",
+      "Priority support",
+      "Analytics dashboard",
+    ],
+    buttonLabel: "Start Pro Trial",
+    buttonStyle: "bg-indigo-600 text-white hover:bg-indigo-700",
+    highlight: true,
+  },
+  {
+    title: "Enterprise",
+    price: "$49",
+    duration: "/month",
+    features: [
+      "Custom AI models",
+      "Team collaboration",
+      "API access",
+      "24/7 dedicated support",
+    ],
+    buttonLabel: "Contact Sales",
+    buttonStyle: "bg-gray-800 text-white hover:bg-gray-900",
+    highlight: false,
+  },
+];
+
 const PricingComponent = () => {
   return (
     <section className="mb-16 py-12" id="pricing-section">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-3xl font-bold text-gray-300">
           Simple, Transparent Pricing
         </h2>
-        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
           Choose the plan that best fits your needs
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-        <div className="bg-blue-500/20 p-8 rounded-lg shadow-sm border border-gray-200">
-          <h3 className="text-xl font-semibold mb-2">Free</h3>
-          <div className="mb-4">
-            <span className="text-4xl font-bold">$0</span>
-            <span className="text-gray-500">/month</span>
+        {pricingPlans.map((plan, index) => (
+          <div
+            key={index}
+            className={`bg-blue-500/20 p-8 rounded-lg shadow-sm border border-gray-200 ${
+              plan.highlight
+                ? "border-indigo-600 relative transform scale-105"
+                : ""
+            }`}
+          >
+            {plan.highlight && (
+              <div className="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg">
+                Popular
+              </div>
+            )}
+            <h3 className="text-xl font-semibold mb-2 text-gray-300">{plan.title}</h3>
+            <div className="mb-4">
+              <span className="text-4xl font-bold text-gray-500">{plan.price}</span>
+              <span className="text-gray-500">{plan.duration}</span>
+            </div>
+            <ul className="space-y-3 mb-8">
+              {plan.features.map((feature, i) => (
+                <li key={i} className="flex items-center">
+                  <i className="fas fa-check text-green-500 mr-2"></i>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <button
+              className={`w-full !rounded-button px-4 py-2 ${plan.buttonStyle}`}
+            >
+              {plan.buttonLabel}
+            </button>
           </div>
-          <ul className="space-y-3 mb-8">
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Basic AI writing assistance</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>5 stories per month</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Community access</span>
-            </li>
-          </ul>
-          <button className="w-full !rounded-button bg-gray-100 text-gray-800 px-4 py-2 hover:bg-gray-200">
-            Get Started
-          </button>
-        </div>
-        <div className="bg-blue-500/20 p-8 rounded-lg shadow-sm border border-indigo-600 relative transform scale-105">
-          <div className="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 text-sm rounded-bl-lg rounded-tr-lg">
-            Popular
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Pro</h3>
-          <div className="mb-4">
-            <span className="text-4xl font-bold">$19</span>
-            <span className="text-gray-500">/month</span>
-          </div>
-          <ul className="space-y-3 mb-8">
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Advanced AI writing tools</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Unlimited stories</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Priority support</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Analytics dashboard</span>
-            </li>
-          </ul>
-          <button className="w-full !rounded-button bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700">
-            Start Pro Trial
-          </button>
-        </div>
-        <div className="bg-blue-500/20 p-8 rounded-lg shadow-sm border border-gray-200">
-          <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-          <div className="mb-4">
-            <span className="text-4xl font-bold">$49</span>
-            <span className="text-gray-500">/month</span>
-          </div>
-          <ul className="space-y-3 mb-8">
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Custom AI models</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>Team collaboration</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>API access</span>
-            </li>
-            <li className="flex items-center">
-              <i className="fas fa-check text-green-500 mr-2"></i>
-              <span>24/7 dedicated support</span>
-            </li>
-          </ul>
-          <button className="w-full !rounded-button bg-gray-800 text-white px-4 py-2 hover:bg-gray-900">
-            Contact Sales
-          </button>
-        </div>
+        ))}
       </div>
     </section>
   );

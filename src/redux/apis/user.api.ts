@@ -1,8 +1,9 @@
+import { User } from "../../models/user";
 import baseApi from "../base_api/base.api";
 import { USER_URL } from "../base_api/base.endpoints";
 import { tagTypes } from "../tag-types";
 
-const writerApi = baseApi.injectEndpoints({
+const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     applyForWriter: build.mutation({
       query: (data) => ({
@@ -19,7 +20,18 @@ const writerApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.user],
     }),
+    getProfileInfo: build.query<User, void>({
+      query: () => ({
+        url: `/${USER_URL}/profile`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useApplyForWriterMutation, useGetUsersListQuery } = writerApi;
+export const {
+  useApplyForWriterMutation,
+  useGetUsersListQuery,
+  useGetProfileInfoQuery,
+} = userApi;

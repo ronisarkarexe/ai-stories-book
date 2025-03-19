@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getShortenedText, ITopicData, topicsData } from "./stories.utils";
 import toast, { Toaster } from "react-hot-toast";
+import { useCreatePostMutation } from "../../redux/apis/post.api";
 
 export interface IStories {
-  id: string;
+  uuid: string;
   title: string;
   content: string;
   tag: string;
@@ -11,7 +12,7 @@ export interface IStories {
 }
 
 interface IPost extends IStories {
-  topics: ITopicData[];
+  topic: ITopicData[];
 }
 
 interface StoriesComponentProps {
@@ -26,14 +27,22 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
   setStories,
 }) => {
   const [selectedStory, setSelectedStory] = useState<IStories | null>(
-    stories[0]
+    stories && stories[0]
   );
   const [topics, setTopics] = useState<ITopicData[]>(topicsData);
   const [selectTopics, setSelectTopics] = useState<ITopicData[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [createPost] = useCreatePostMutation();
 
   useEffect(() => {
     setSelectTopics(topics.filter((topic) => topic.selected));
   }, [topics]);
+
+  useEffect(() => {
+    if (stories && stories.length > 0) {
+      setSelectedStory(stories[0]);
+    }
+  }, [stories]);
 
   const handelStorySelection = (story: IStories) => {
     setSelectedStory(story);
@@ -45,7 +54,7 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
     setTopics(updatedTopics);
   };
 
-  const handelPublishStory = () => {
+  const handelPublishStory = async () => {
     if (!isLogin) {
       toast.error("Please login to publish the story.");
       return;
@@ -56,10 +65,21 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
     }
     const post: IPost = {
       ...selectedStory,
-      topics: selectTopics,
+      topic: selectTopics,
     };
-
-    console.log("post for publish", post);
+    setLoading(true);
+    try {
+      const result = await createPost(post).unwrap();
+      if (result) {
+        toast.success("Story published successfully!");
+        setStories([]);
+        setSelectedStory(null);
+      }
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,11 +94,15 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
             </div>
             <div className="flex justify-end mb-4">
               <div className="flex -space-x-5">
-                {stories.length > 0 ? (
+                {stories && stories.length > 0 ? (
                   stories.map((story) => (
                     <button
-                      key={story.id}
-                      className="relative w-16 h-16 rounded-full border-2 border-white hover:scale-110 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-fuchsia-600"
+                      key={story.uuid}
+                      className={`relative w-16 h-16 rounded-full border-2 ${
+                        selectedStory?.uuid === story.uuid
+                          ? "border-blue-500 scale-110"
+                          : "border-white"
+                      } hover:scale-110 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-fuchsia-600`}
                       onClick={() => handelStorySelection(story)}
                     >
                       <img
@@ -104,10 +128,14 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
               </h3>
               <span className="text-sm text-gray-800">
                 <button
-                  className={`rounded-lg px-4 py-1 font-semibold flex items-center space-x-2 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white`}
+                  className={`rounded-lg px-4 py-1 font-semibold flex items-center space-x-2 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white ${
+                    loading
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:shadow-lg hover:shadow-indigo-500/50"
+                  }`}
                   onClick={handelPublishStory}
                 >
-                  <span>Publish</span>
+                  {loading ? "Publishing..." : "Publish"}
                 </button>
               </span>
             </div>
@@ -125,20 +153,28 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
                 Select Topics
               </h3>
               <div className="flex flex-wrap gap-2">
-                {topics.map((topic, index) => (
-                  <span
-                    key={index}
-                    className={`px-3 py-1 ${topic.color} rounded-full text-sm hover:bg-blue-200 cursor-pointer`}
-                    onClick={() => handleTopicClick(index)}
-                  >
-                    {topic.selected ? (
-                      <i className="fa-solid fa-check"></i>
-                    ) : (
-                      <i className="fa-solid fa-plus"></i>
-                    )}{" "}
-                    {topic.title}
-                  </span>
-                ))}
+                {selectedStory ? (
+                  <>
+                    {topics.map((topic, index) => (
+                      <span
+                        key={index}
+                        className={`px-3 py-1 ${topic.color} rounded-full text-sm hover:bg-blue-200 cursor-pointer`}
+                        onClick={() => handleTopicClick(index)}
+                      >
+                        {topic.selected ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-plus"></i>
+                        )}{" "}
+                        {topic.title}
+                      </span>
+                    ))}
+                  </>
+                ) : (
+                  <p className="text-gray-300">
+                    No topics available. Please generate a story first.
+                  </p>
+                )}
               </div>
             </div>
           </div>

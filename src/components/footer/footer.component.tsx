@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 
 const FooterComponent = () => {
   return (
-    <footer className="border-t border-gray-200">
+    <div>
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -98,7 +98,7 @@ const FooterComponent = () => {
             </form>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-8 flex items-center justify-between">
+        <div className="mt-8 border-t border-gray-400 pt-8 flex items-center justify-between">
           <p className="text-base text-gray-400">
             &copy; 2024 AIStoriesBook. All rights reserved.
           </p>
@@ -118,7 +118,7 @@ const FooterComponent = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 };
 
