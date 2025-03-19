@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StoriesViewComponent, { IStories } from "./stories.view.component";
 import { Link } from "react-router-dom";
 import { getUserInfo, isLoggedIn } from "../../services/auth.service";
-import { getRequestLimit, getWordCount } from "./stories.utils";
+import { getRequestLimit, getWordCount, prompts } from "./stories.utils";
 import {
   useGenerateFreeModelMutation,
   useGenerateModelMutation,
@@ -15,13 +15,19 @@ type Inputs = {
 };
 
 const StoriesComponent = () => {
-  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { register, handleSubmit, reset, setValue } = useForm<Inputs>();
   const [stories, setStories] = useState<IStories[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const userRole = getUserInfo();
   const login = isLoggedIn();
   const [generateModel] = useGenerateModelMutation();
   const [generateFreeModel] = useGenerateFreeModelMutation();
+  const [selectedPrompt, setSelectedPrompt] = useState<string>("");
+  const [textareaValue, setTextareaValue] = useState<string>("");
+
+  useEffect(() => {
+    setValue("prompt", textareaValue);
+  }, [textareaValue, setValue]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (data.prompt === "") {
@@ -51,33 +57,44 @@ const StoriesComponent = () => {
     }
   };
 
+  const handlePromptSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    setSelectedPrompt(selectedValue);
+    setTextareaValue(selectedValue);
+  };
+
   return (
     <div className="bg-gradient-to-br animate-gradient-slow min-h-screen">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="py-6 flex items-center justify-between">
           <Link to="/">
-            <div className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
+            <div className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
               <i className="fa-solid fa-left-long"></i> BACK
             </div>
           </Link>
           {!login && (
-            <div className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 text-white px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
-              Free access for 3 requests — login for more!
+            <div className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 text-gray-400 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded text-sm">
+              Free access for 3 requests —{" "}
+              <Link to="/login">
+                {""}
+                <span className="text-indigo-400 underline font-semibold">Login</span>{" "}
+              </Link>{""}
+              for more!
             </div>
           )}
-          <button className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
+          <button className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
             <span>
               {" "}
-              <span className="text-gray-400">Per Month</span>{" "}
+              <span className="text-gray-400 text-sm">Per Month</span>{" "}
               {getRequestLimit(userRole?.subscriptionType as string)}
             </span>
-            <span className="border-l border-white/20 pl-2">Upgrade</span>
+            <span className="border-l border-white/20 pl-2 text-gray-300">Upgrade</span>
             <i className="fas fa-bolt text-yellow-400"></i>
           </button>
         </header>
 
         <div className="mt-11">
-          <h1 className="text-white text-4xl font-extrabold text-center mb-12 leading-snug drop-shadow-lg tracking-wide">
+          <h1 className="text-gray-300 text-4xl font-extrabold text-center mb-12 leading-snug drop-shadow-lg tracking-wide">
             ✨ One Prompt, Endless Stories –{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-400">
               Generate Story Today!
@@ -86,19 +103,21 @@ const StoriesComponent = () => {
           </h1>
 
           <div className="max-w-3xl mx-auto p-4">
-            <div className=" bg-slate-600 rounded-md p-4 border border-gray-400">
+            <div className="bg-blue-500/10 rounded-md p-4 border border-gray-400">
               <div className="relative">
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                   <textarea
                     {...register("prompt")}
-                    className="w-full h-40 resize-none border-none outline-none bg-transparent text-white focus:ring-0 text-lg leading-relaxed tracking-wide placeholder:italic placeholder:text-gray-400 font-[Poppins] md:font-[Inter]"
+                    className="w-full h-40 resize-none border-none outline-none bg-transparent text-gray-300 focus:ring-0 text-lg leading-relaxed tracking-wide placeholder:italic placeholder:text-gray-500"
                     placeholder="Every great story begins with a single idea. What’s yours?"
+                    value={textareaValue}
+                    onChange={(e) => setTextareaValue(e.target.value)}
                   ></textarea>
                   <div className="absolute bottom-3 right-3 flex items-center space-x-2">
                     <button
                       type="submit"
                       disabled={loading}
-                      className={`rounded-lg bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-6 py-3 font-semibold ${
+                      className={`rounded-lg bg-gradient-to-r from-blue-400 to-indigo-500 text-gray-200 px-6 py-3 font-semibold ${
                         loading
                           ? "opacity-50 cursor-not-allowed"
                           : "hover:shadow-lg hover:shadow-indigo-500/50"
@@ -109,6 +128,34 @@ const StoriesComponent = () => {
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+            <div className="w-full max-w-2xl m-auto mt-4">
+              <h1 className="text-sm text-gray-500 mb-1">
+                Here are some example prompts you can refer to:-
+              </h1>
+              <div className="relative">
+                <select
+                  className="w-full p-2 bg-slate-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none text-sm"
+                  value={selectedPrompt}
+                  onChange={handlePromptSelect}
+                >
+                  <option value="" disabled>
+                    Select a prompt
+                  </option>
+                  {prompts.map((item) => (
+                    <option
+                      className="text-sm"
+                      key={item.id}
+                      value={item.prompt}
+                    >
+                      {item.prompt}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute top-0 right-0 h-full flex items-center pr-3 pointer-events-none text-gray-300">
+                  ▼
+                </div>
               </div>
             </div>
           </div>

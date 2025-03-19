@@ -113,7 +113,7 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
                     </button>
                   ))
                 ) : (
-                  <div className="text-gray-300">
+                  <div className="text-gray-400">
                     No stories available. Please generate some stories first.
                   </div>
                 )}
@@ -121,14 +121,14 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
             </div>
           </div>
 
-          <div className="bg-slate-600 border border-gray-400 p-6 rounded-lg shadow-lg">
+          <div className="bg-blue-500/10 border border-gray-500 p-6 rounded-lg shadow-lg">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold text-slate-800">
+              <h3 className="text-xl font-semibold text-gray-300">
                 Generated Story
               </h3>
               <span className="text-sm text-gray-800">
                 <button
-                  className={`rounded-lg px-4 py-1 font-semibold flex items-center space-x-2 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white ${
+                  className={`rounded-lg px-4 py-1 font-semibold flex items-center space-x-2 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-gray-300 ${
                     loading
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:shadow-lg hover:shadow-indigo-500/50"
@@ -139,7 +139,7 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
                 </button>
               </span>
             </div>
-            <div className="prose max-w-none text-gray-300">
+            <div className="prose max-w-none text-gray-400">
               {selectedStory ? (
                 <p>{selectedStory.content}</p>
               ) : (
@@ -148,8 +148,8 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
             </div>
           </div>
           <div className="mt-7">
-            <div className="bg-slate-600 border border-gray-400 rounded-lg shadow-sm p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="bg-blue-500/10 border border-gray-400 rounded-lg shadow-sm p-6 mb-8">
+              <h3 className="text-lg font-semibold text-gray-300 mb-4">
                 Select Topics
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -171,7 +171,7 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
                     ))}
                   </>
                 ) : (
-                  <p className="text-gray-300">
+                  <p className="text-gray-400">
                     No topics available. Please generate a story first.
                   </p>
                 )}
@@ -186,7 +186,7 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
               Preview
             </h1>
           </div>
-          <div className="bg-slate-600 border border-gray-400 rounded-lg shadow-lg">
+          <div className="bg-blue-500/10 border border-gray-400 rounded-lg shadow-lg">
             {selectedStory ? (
               <div className="relative flex flex-col rounded-lg">
                 <div className="relative m-2.5 overflow-hidden text-white rounded-md">
@@ -197,19 +197,19 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
                   />
                 </div>
                 <div className="px-3 py-1">
-                  <div className="mb-2 rounded-full bg-cyan-600 py-0.5 px-2.5 border border-transparent text-xs text-white transition-all shadow-sm w-20 text-center">
+                  <div className="mb-2 rounded-full bg-cyan-600 py-0.5 px-2.5 border border-transparent text-xs text-gray-400 transition-all shadow-sm w-20 text-center">
                     {selectedStory.tag.toUpperCase()}
                   </div>
-                  <h6 className="mb-1 text-slate-800 text-xl font-semibold">
+                  <h6 className="mb-1 text-gray-300 text-xl font-semibold">
                     {selectedStory.title}
                   </h6>
-                  <p className="text-gray-300 font-light">
+                  <p className="text-gray-400 font-light">
                     {getShortenedText(selectedStory.content)}
                   </p>
                 </div>
               </div>
             ) : (
-              <div className="p-6 text-center text-gray-300">
+              <div className="p-6 text-center text-gray-400">
                 No story available. Please generate a story first.
               </div>
             )}

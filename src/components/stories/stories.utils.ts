@@ -76,3 +76,54 @@ export const getWordCount = (str: string) => {
     .split(/\s+/)
     .filter((word) => /^[a-zA-Z]+$/.test(word)).length;
 };
+
+export const prompts = [
+  {
+    id: 1,
+    prompt:
+      "A brave knight discovers a hidden portal in his castle's basement that leads to a mysterious world.",
+  },
+  {
+    id: 2,
+    prompt:
+      "Describe a world where animals can speak and humans must negotiate peace treaties with them.",
+  },
+  {
+    id: 3,
+    prompt:
+      "Write a heartwarming story about two childhood friends reunited after 20 years.",
+  },
+  {
+    id: 4,
+    prompt:
+      "Imagine a future where dreams can be recorded and sold as entertainment.",
+  },
+  {
+    id: 5,
+    prompt:
+      "A scientist accidentally creates a serum that lets people see the future for 60 seconds.",
+  },
+  {
+    id: 6,
+    prompt: "Tell the story of a robot who desperately wants to become human.",
+  },
+  {
+    id: 7,
+    prompt:
+      "A young artist discovers their extraordinary drawings are magically coming to life with unexpected consequences.",
+  },
+  {
+    id: 8,
+    prompt:
+      "Write a mystery about a locked room with no doors or windows but someone inside.",
+  },
+  {
+    id: 9,
+    prompt:
+      "Describe a mesmerizing world where music intricately controls the unpredictable weather patterns.",
+  },
+  {
+    id: 10,
+    prompt: "A time traveler finds themselves stuck in the age of dinosaurs.",
+  },
+];
