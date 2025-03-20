@@ -1,17 +1,23 @@
 import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
 import { Post } from "../../../models/post";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingAnimation from "../../loading/loading.component";
 
 const LatestPostsComponent = () => {
-  const { data } = useGetLatestListsQuery(undefined);
-
+  const { data, isLoading } = useGetLatestListsQuery(undefined);
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
   return (
     <div>
       <h2 className="text-2xl font-bold text-gray-300 mb-6">Latest Posts</h2>
       <div className="space-y-6">
         {data?.length > 0 ? (
           data.map((post: Post) => (
-            <div key={post._id} className="bg-blue-500/10 rounded-lg shadow-sm p-6">
+            <div
+              key={post._id}
+              className="bg-blue-500/10 rounded-lg shadow-sm p-6"
+            >
               <div className="flex items-center mb-4">
                 {/* <img
                   className="h-10 w-10 rounded-full"

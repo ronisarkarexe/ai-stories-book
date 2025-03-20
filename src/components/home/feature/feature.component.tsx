@@ -1,16 +1,23 @@
 import { Post } from "../../../models/post";
 import { useGetFeaturedListsQuery } from "../../../redux/apis/post.api";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingAnimation from "../../loading/loading.component";
 
 const FeatureComponent = () => {
-  const { data } = useGetFeaturedListsQuery(undefined);
+  const { data, isLoading } = useGetFeaturedListsQuery(undefined);
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
   return (
     <div className="mb-12">
       <h2 className="text-2xl font-bold text-gray-300 mb-6">Featured Posts</h2>
       <div className="grid gap-8 sm:grid-cols-2">
         {data?.length > 0 ? (
           data.map((post: Post) => (
-            <div key={post._id} className="bg-blue-500/10 rounded-lg shadow-sm overflow-hidden">
+            <div
+              key={post._id}
+              className="bg-blue-500/10 rounded-lg shadow-sm overflow-hidden"
+            >
               <img
                 className="h-48 w-full object-cover"
                 src={post.imageURL}

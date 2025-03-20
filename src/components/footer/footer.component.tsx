@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logoNew.png";
 
 const FooterComponent = () => {
   return (
@@ -100,7 +100,7 @@ const FooterComponent = () => {
         </div>
         <div className="mt-8 border-t border-gray-400 pt-8 flex items-center justify-between">
           <p className="text-base text-gray-400">
-            &copy; 2024 AIStoriesBook. All rights reserved.
+            &copy; 2025 StorySpark.AI - All rights reserved.
           </p>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-400 hover:text-gray-500">
