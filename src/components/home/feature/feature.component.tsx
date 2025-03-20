@@ -10,7 +10,7 @@ const FeatureComponent = () => {
       <div className="grid gap-8 sm:grid-cols-2">
         {data?.length > 0 ? (
           data.map((post: Post) => (
-            <div className="bg-blue-500/10 rounded-lg shadow-sm overflow-hidden">
+            <div key={post._id} className="bg-blue-500/10 rounded-lg shadow-sm overflow-hidden">
               <img
                 className="h-48 w-full object-cover"
                 src={post.imageURL}

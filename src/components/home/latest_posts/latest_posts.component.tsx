@@ -11,7 +11,7 @@ const LatestPostsComponent = () => {
       <div className="space-y-6">
         {data?.length > 0 ? (
           data.map((post: Post) => (
-            <div className="bg-blue-500/10 rounded-lg shadow-sm p-6">
+            <div key={post._id} className="bg-blue-500/10 rounded-lg shadow-sm p-6">
               <div className="flex items-center mb-4">
                 {/* <img
                   className="h-10 w-10 rounded-full"
