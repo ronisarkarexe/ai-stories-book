@@ -10,7 +10,7 @@ const postApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      invalidatesTags: [tagTypes.post],
+      invalidatesTags: [tagTypes.post, tagTypes.user],
     }),
     getPostLists: build.query({
       query: () => ({

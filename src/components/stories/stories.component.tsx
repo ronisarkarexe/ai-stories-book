@@ -9,6 +9,7 @@ import {
 } from "../../redux/apis/ai.model.api";
 import toast, { Toaster } from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useGetProfileInfoQuery } from "../../redux/apis/user.api";
 
 type Inputs = {
   prompt: string;
@@ -18,6 +19,7 @@ const StoriesComponent = () => {
   const { register, handleSubmit, reset, setValue } = useForm<Inputs>();
   const [stories, setStories] = useState<IStories[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const { data } = useGetProfileInfoQuery(undefined);
   const userRole = getUserInfo();
   const login = isLoggedIn();
   const [generateModel] = useGenerateModelMutation();
@@ -66,7 +68,7 @@ const StoriesComponent = () => {
   return (
     <div className="bg-gradient-to-br animate-gradient-slow min-h-screen">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="py-6 flex items-center justify-between">
+        <div className="py-6 flex justify-between">
           <Link to="/">
             <div className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
               <i className="fa-solid fa-left-long"></i> BACK
@@ -77,21 +79,35 @@ const StoriesComponent = () => {
               Free access for 3 requests —{" "}
               <Link to="/login">
                 {""}
-                <span className="text-indigo-400 underline font-semibold">Login</span>{" "}
-              </Link>{""}
+                <span className="text-indigo-400 underline font-semibold">
+                  Login
+                </span>{" "}
+              </Link>
+              {""}
               for more!
             </div>
           )}
-          <button className="!rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
-            <span>
-              {" "}
-              <span className="text-gray-400 text-sm">Per Month</span>{" "}
-              {getRequestLimit(userRole?.subscriptionType as string)}
-            </span>
-            <span className="border-l border-white/20 pl-2 text-gray-300">Upgrade</span>
-            <i className="fas fa-bolt text-yellow-400"></i>
-          </button>
-        </header>
+          <div className="">
+            <button className="mt-1 !rounded-button bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded">
+              <span>
+                {" "}
+                <span className="text-gray-400 text-xs">Per Month</span>{" "}
+                {getRequestLimit(userRole?.subscriptionType as string)}
+              </span>
+              <Link to="/pricing">
+                <span className="border-l border-white/20 pl-2 text-gray-300 cursor-pointer">
+                  Upgrade
+                </span>
+              </Link>
+              <i className="fas fa-bolt text-yellow-400"></i>
+            </button>
+            <div className="mt-3 text-gray-500 text-xs">
+              <span>This month request: {data?.requestsThisMonth ?? 0}</span>
+              <br />
+              <span>Total posts: {data?.postsCount ?? 0}</span>
+            </div>
+          </div>
+        </div>
 
         <div className="mt-11">
           <h1 className="text-gray-300 text-4xl font-extrabold text-center mb-12 leading-snug drop-shadow-lg tracking-wide">

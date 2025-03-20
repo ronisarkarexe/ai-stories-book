@@ -35,7 +35,7 @@ const HeroSectionComponent = () => {
               AI <i className="fa-solid fa-wand-sparkles"></i>
             </span>
           </div>
-          <h1 className="text-7xl font-bold text-white mb-8 tracking-tight">
+          <h1 className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-500 to-slate-900 mb-8 tracking-tight">
             Unleash Your
             <br />
             Imagination with AI-Generated Stories!
@@ -43,7 +43,7 @@ const HeroSectionComponent = () => {
               <i className="fas fa-bolt text-yellow-400 glow"></i>
             </span>
           </h1>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
             Transform your ideas into captivating narratives with just a simple
             prompt. Whether it's fantasy, mystery, or sci-fi — let your
             creativity flow effortlessly.

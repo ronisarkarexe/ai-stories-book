@@ -27,25 +27,25 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-16">
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-white hover:text-custom transition">
+            <a href="/" className="text-gray-400 hover:text-custom transition">
               HOME
             </a>
             <a
-              href="/http_codes"
-              className="text-white hover:text-custom transition"
+              href="/explore"
+              className="text-gray-400 hover:text-custom transition"
             >
               EXPLORE
             </a>
-            <a
-              href="/repos"
-              className="text-white hover:text-custom transition"
+            {/* <a
+              href="/categories"
+              className="text-gray-400 hover:text-custom transition"
             >
               CATEGORIES
-            </a>
+            </a> */}
             {isLogin && (
               <a
                 href="/dashboard"
-                className="text-white hover:text-custom transition"
+                className="text-gray-400 hover:text-custom transition"
               >
                 DASHBOARD
               </a>
@@ -69,7 +69,7 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
                 >
                   <i className="fa-solid fa-bell"></i>
                 </button>
-                <span className="absolute top-0.5 right-0.5 grid min-h-[18px] min-w-[18px] translate-x-2/4 -translate-y-2/4 place-items-center rounded-full bg-red-700 text-xs text-white">
+                <span className="absolute top-0.5 right-0.5 grid min-h-[18px] min-w-[18px] translate-x-2/4 -translate-y-2/4 place-items-center rounded-full bg-red-700 text-xs text-gray-400">
                   {newNotify}
                 </span>
               </div>
@@ -78,13 +78,13 @@ const NavListComponent: React.FC<INavListComponentProps> = ({
               {isLogin ? (
                 <button
                   onClick={handelLogout}
-                  className="!rounded-button bg-blue hover:bg-blue text-white px-6 py-2 font-medium transition-all cursor-pointer"
+                  className="!rounded-button bg-blue hover:bg-blue text-gray-400 px-6 py-2 font-medium transition-all cursor-pointer"
                 >
                   LOGOUT
                 </button>
               ) : (
                 <Link to="/login">
-                  <button className="!rounded-button bg-blue hover:bg-blue text-white px-6 py-2 font-medium transition-all cursor-pointer">
+                  <button className="!rounded-button bg-blue hover:bg-blue text-gray-400 px-6 py-2 font-medium transition-all cursor-pointer">
                     LOGIN
                   </button>
                 </Link>

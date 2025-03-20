@@ -11,6 +11,8 @@ import ComponentsComponent from "./components/dashboard/components/components.co
 import StoriesComponent from "./components/stories/stories.component";
 import WriterApplicationComponent from "./components/dashboard/writers/writer_application.component";
 import UserComponent from "./components/dashboard/users/user.component";
+import PricingComponent from "./components/pricing/pricing.component";
+import ExploreComponent from "./components/explore/explore.component";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
         <Route path="/stories" element={<StoriesComponent />} />
         <Route path="/login" element={<LoginComponent />} />
         <Route path="/signup" element={<SignUpComponent />} />
+        <Route path="/pricing" element={<PricingComponent />} />
+        <Route path="/explore" element={<ExploreComponent />} />
       </Routes>
     </Router>
   );
