@@ -1,7 +1,7 @@
-import axios, { AxiosResponse, AxiosResponseHeaders } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getFromLocalStorage } from "../../utils/local-storage";
 import { AUTH_KEY } from "../../constants/storage-key";
-import { IMeta, ResponseErrorType, ResponseSuccessType } from "../../types";
+import { IMeta, ResponseErrorType } from "../../types";
 
 const instance = axios.create();
 instance.defaults.headers.post["Content-Type"] = "application/json";
@@ -27,19 +27,8 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  function <T>(response: AxiosResponse<ApiResponseData<T>>): AxiosResponse<T> {
-    const responseObject: ResponseSuccessType<T> = {
-      data: response.data.data,
-      meta: response.data.meta,
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers as AxiosResponseHeaders,
-      config: response.config,
-    };
-    return {
-      ...response,
-      data: responseObject.data,
-    };
+  (response: AxiosResponse<ApiResponseData>) => {
+    return response;
   },
   function (error) {
     const errorObject: ResponseErrorType = {

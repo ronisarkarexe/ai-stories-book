@@ -8,7 +8,6 @@ export interface IMeta {
 
 export interface ResponseSuccessType<T = unknown> {
   data: T;
-  meta?: IMeta;
   status: number;
   statusText: string;
   headers: AxiosResponseHeaders;

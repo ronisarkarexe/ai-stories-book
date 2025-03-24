@@ -1,3 +1,5 @@
+import { Post } from "../../models/post";
+import { IMeta } from "../../types";
 import baseApi from "../base_api/base.api";
 import { POST_URL } from "../base_api/base.endpoints";
 import { tagTypes } from "../tag-types";
@@ -13,10 +15,22 @@ const postApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.post, tagTypes.user],
     }),
     getPostLists: build.query({
-      query: () => ({
+      query: (arg: Record<string, string | number>) => ({
         url: `/${POST_URL}/lists`,
         method: "GET",
+        params: arg,
       }),
+      transformResponse: (response: {
+        data: Post[];
+        meta: IMeta;
+        message: string;
+      }) => {
+        return {
+          posts: response.data,
+          meta: response.meta,
+          message: response.message,
+        };
+      },
       providesTags: [tagTypes.post],
     }),
     getLatestLists: build.query({
