@@ -38,6 +38,17 @@ const postApi = baseApi.injectEndpoints({
         url: `/${POST_URL}/latest-lists`,
         method: "GET",
       }),
+      transformResponse: (response: {
+        data: Post[];
+        meta: IMeta;
+        message: string;
+      }) => {
+        return {
+          posts: response.data,
+          meta: response.meta,
+          message: response.message,
+        };
+      },
       providesTags: [tagTypes.post],
     }),
     getFeaturedLists: build.query({
@@ -45,6 +56,17 @@ const postApi = baseApi.injectEndpoints({
         url: `/${POST_URL}/feature-lists`,
         method: "GET",
       }),
+      transformResponse: (response: {
+        data: Post[];
+        meta: IMeta;
+        message: string;
+      }) => {
+        return {
+          posts: response.data,
+          meta: response.meta,
+          message: response.message,
+        };
+      },
       providesTags: [tagTypes.post],
     }),
   }),

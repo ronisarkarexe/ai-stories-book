@@ -1,4 +1,5 @@
 import { User } from "../../models/user";
+import { IMeta } from "../../types";
 import baseApi from "../base_api/base.api";
 import { USER_URL } from "../base_api/base.endpoints";
 import { tagTypes } from "../tag-types";
@@ -25,6 +26,11 @@ const userApi = baseApi.injectEndpoints({
         url: `/${USER_URL}/profile`,
         method: "GET",
       }),
+      transformResponse: (response: {
+        data: User;
+        message: string;
+        meta: IMeta;
+      }) => response.data,
       providesTags: [tagTypes.user],
     }),
   }),

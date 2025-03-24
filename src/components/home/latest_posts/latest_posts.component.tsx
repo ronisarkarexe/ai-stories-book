@@ -12,8 +12,8 @@ const LatestPostsComponent = () => {
     <div>
       <h2 className="text-2xl font-bold text-gray-300 mb-6">Latest Posts</h2>
       <div className="space-y-6">
-        {data?.length > 0 ? (
-          data.map((post: Post) => (
+        {data?.posts?.length ?? 0 > 0 ? (
+          data?.posts?.map((post: Post) => (
             <div
               key={post._id}
               className="bg-blue-500/10 rounded-lg shadow-sm p-6"
