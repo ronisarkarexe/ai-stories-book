@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Post } from "../../models/post";
 
 interface IExploreViewListComponentProps {
@@ -12,6 +13,7 @@ const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
   isLoading,
   isError,
 }) => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="grid grid-cols-4 gap-6">
@@ -19,20 +21,15 @@ const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
           posts.map((story) => (
             <div
               key={story._id}
-              className="bg-blue-500/10 rounded-lg shadow-sm overflow-hidden group"
+              onClick={() => navigate(`/post/${story._id}`)}
+              className="cursor-pointer bg-blue-500/10 rounded-lg shadow-sm overflow-hidden group"
             >
               <img src={story.imageURL} className="w-full h-36 object-cover" />
               <div className="p-2">
                 <div className="flex items-center mb-2">
-                  <span
-                    className={`bg-pink-200 text-pink-600 px-2 py-1 rounded text-xs`}
-                  >
+                  <span className="bg-pink-200 text-pink-600 px-2 py-1 rounded text-xs">
                     {story.tag}
                   </span>
-                  {/* <div className="ml-auto text-sm text-gray-500">
-                <i className="far fa-clock mr-1"></i>
-                <span>{story.readTime}</span>
-              </div> */}
                 </div>
                 <h3 className="font-semibold mb-1 text-gray-400">
                   {story.title}
@@ -57,7 +54,7 @@ const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
             </div>
           ))
         ) : (
-          <div></div>
+          <div>No posts available</div>
         )}
       </div>
     </div>

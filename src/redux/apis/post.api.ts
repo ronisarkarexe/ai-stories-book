@@ -69,6 +69,26 @@ const postApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.post],
     }),
+    getPostById: build.query({
+      query: (id: string) => ({
+        url: `/${POST_URL}/${id}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { data: Post; message: string }) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.post],
+    }),
+    getPostByTag: build.query({
+      query: (tag: string) => ({
+        url: `/${POST_URL}/tag/${tag}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { data: Post[]; message: string }) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.post],
+    }),
   }),
 });
 
@@ -77,4 +97,6 @@ export const {
   useGetPostListsQuery,
   useGetLatestListsQuery,
   useGetFeaturedListsQuery,
+  useGetPostByIdQuery,
+  useGetPostByTagQuery,
 } = postApi;

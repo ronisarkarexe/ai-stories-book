@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ExploreViewListComponent from "./explore.view.list.component";
-import ExploreFeatureComponent from "./explore.feature.component";
+import ExploreViewListComponent from "./post.view.list.component";
+import ExploreFeatureComponent from "./post.feature.component";
 import { Link } from "react-router-dom";
 import { useGetPostListsQuery } from "../../redux/apis/post.api";
 import { useDebounced } from "../../hooks/global";
@@ -83,7 +83,7 @@ const ExploreComponent = () => {
               <input
                 type="text"
                 placeholder="Search title, tag..."
-                className="w-full pl-12 pr-4 py-2 text-base text-gray-300 bg-blue-500/10 border outline-1 -outline-offset-1 outline-indigo-600 rounded-md focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                className="w-full pl-12 pr-4 py-2 text-base text-indigo-600 bg-blue-500/10 border outline-1 -outline-offset-1 outline-indigo-600 rounded-md focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
