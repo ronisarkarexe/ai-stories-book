@@ -31,7 +31,7 @@ const PostDetailsComponent = () => {
 
           <div className=""></div>
         </div>
-        <div className="rounded-lg shadow-sm bg-blue-500/10">
+        <div className="rounded-lg shadow-sm bg-blue-500/10 mb-10">
           <div className="p-8">
             <div className="flex justify-between">
               <div className="flex items-center space-x-4 mb-6">
@@ -92,9 +92,11 @@ const PostDetailsComponent = () => {
               </div>
             </div>
 
-            <div className="mb-12">
-              <PostCommentComponent />
-            </div>
+            {id && (
+              <div className="mb-12">
+                <PostCommentComponent postId={id} />
+              </div>
+            )}
 
             <div>
               <h3 className="text-xl font-semibold mb-4 text-gray-300">

@@ -1,6 +1,5 @@
 import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
 import { Post } from "../../../models/post";
-import toast, { Toaster } from "react-hot-toast";
 import LoadingAnimation from "../../loading/loading.component";
 
 const LatestPostsComponent = () => {
@@ -63,7 +62,6 @@ const LatestPostsComponent = () => {
           <div>Post is not available!</div>
         )}
       </div>
-      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

@@ -1,9 +1,13 @@
 import React from "react";
 import { useGetFeaturedListsQuery } from "../../redux/apis/post.api";
 import { Post } from "../../models/post";
+import LoadingAnimation from "../loading/loading.component";
 
 const ExploreFeatureComponent = () => {
-  const { data } = useGetFeaturedListsQuery(undefined);
+  const { data, isLoading } = useGetFeaturedListsQuery(undefined);
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
   return (
     <div className="grid grid-cols-2 gap-6">
       {data?.posts?.length ?? 0 > 0 ? (

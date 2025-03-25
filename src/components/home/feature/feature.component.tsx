@@ -1,6 +1,5 @@
 import { Post } from "../../../models/post";
 import { useGetFeaturedListsQuery } from "../../../redux/apis/post.api";
-import toast, { Toaster } from "react-hot-toast";
 import LoadingAnimation from "../../loading/loading.component";
 
 const FeatureComponent = () => {
@@ -57,7 +56,6 @@ const FeatureComponent = () => {
           <div>Feature Post is not available!</div>
         )}
       </div>
-      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

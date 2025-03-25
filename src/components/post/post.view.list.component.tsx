@@ -1,19 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../../models/post";
+import LoadingAnimation from "../loading/loading.component";
 
 interface IExploreViewListComponentProps {
   posts: Post[];
   isLoading: boolean;
-  isError: boolean;
 }
 
 const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
   posts,
   isLoading,
-  isError,
 }) => {
   const navigate = useNavigate();
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
   return (
     <div>
       <div className="grid grid-cols-4 gap-6">

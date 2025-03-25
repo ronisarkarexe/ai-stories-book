@@ -35,7 +35,7 @@ const ExploreComponent = () => {
     query["tags"] = selectedTags.join(",");
   }
 
-  const { data, isLoading, isError } = useGetPostListsQuery({ ...query });
+  const { data, isLoading } = useGetPostListsQuery({ ...query });
 
   const resetAllStates = () => {
     setSortBy("createdAt");
@@ -252,7 +252,6 @@ const ExploreComponent = () => {
             <ExploreViewListComponent
               posts={data?.posts || []}
               isLoading={isLoading}
-              isError={isError}
             />
 
             {!featuredPost && data?.meta && (

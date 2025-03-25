@@ -1,5 +1,6 @@
 import React from "react";
 import { Post } from "../../models/post";
+import { useNavigate } from "react-router-dom";
 
 interface IRelatedStoriesComponentProps {
   posts: Post[];
@@ -8,11 +9,16 @@ interface IRelatedStoriesComponentProps {
 const RelatedStoriesComponent: React.FC<IRelatedStoriesComponentProps> = ({
   posts,
 }) => {
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 gap-6">
       {posts.length > 0 ? (
         posts.map((post: Post) => (
-          <a key={post._id} href="#" className="group">
+          <div
+            onClick={() => navigate(`/post/${post._id}`)}
+            key={post._id}
+            className="group cursor-pointer"
+          >
             <img
               src={post.imageURL}
               alt="Related Story"
@@ -24,7 +30,7 @@ const RelatedStoriesComponent: React.FC<IRelatedStoriesComponentProps> = ({
             <p className="text-sm text-gray-500">
               {post?.content.slice(0, 120)}...
             </p>
-          </a>
+          </div>
         ))
       ) : (
         <p className="text-center text-gray-600">No related stories found.</p>
