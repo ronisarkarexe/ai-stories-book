@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { menuItems } from "./dashboard.utils";
 import logo from "../../assets/logo.png";
+import { getUserInfo } from "../../services/auth.service";
 
 const DashboardLayout: React.FC = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
   const location = useLocation();
+  const user = getUserInfo();
+
   const currentPage = menuItems
     .filter(
       (item) =>
@@ -14,6 +18,14 @@ const DashboardLayout: React.FC = () => {
     )
     .sort((a, b) => b.path.length - a.path.length)[0];
   const pageTitle = currentPage ? currentPage.name : "Dashboard";
+
+  const accessibleMenuItems = menuItems.filter((item) =>
+    item.roles.includes(user?.role || "")
+  );
+
+  const toggleSubMenu = (name: string) => {
+    setExpanded((prev) => ({ ...prev, [name]: !prev[name] }));
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -26,20 +38,50 @@ const DashboardLayout: React.FC = () => {
           <img src={logo} alt="Logo" className="h-8 mx-auto" />
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          {menuItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                location.pathname === item.path ||
-                location.pathname.startsWith(item.path + "/")
-                  ? "bg-blue-500/30 text-gray-400"
-                  : "text-gray-400 hover:bg-blue-500/20"
-              }`}
-            >
-              <i className={`${item.icon} w-5 h-5 mr-2`}></i>
-              {!isSidebarCollapsed && <span>{item.name}</span>}
-            </Link>
+          {accessibleMenuItems.map((item) => (
+            <div key={item.name}>
+              <div
+                className={`flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md cursor-pointer ${
+                  location.pathname === item.path ||
+                  location.pathname.startsWith(item.path + "/")
+                    ? "bg-blue-500/30 text-gray-400"
+                    : "text-gray-400 hover:bg-blue-500/20"
+                }`}
+                onClick={() =>
+                  item.subRoutes ? toggleSubMenu(item.name) : null
+                }
+              >
+                <div className="flex items-center">
+                  <i className={`${item.icon} w-5 h-5 mr-2`}></i>
+                  {!isSidebarCollapsed && <span>{item.name}</span>}
+                </div>
+                {item.subRoutes && !isSidebarCollapsed && (
+                  <i
+                    className={`fas fa-chevron-down transition-transform duration-200 ${
+                      expanded[item.name] ? "rotate-180" : ""
+                    }`}
+                  ></i>
+                )}
+              </div>
+              {item.subRoutes && expanded[item.name] && (
+                <div className="ml-6 mt-1 space-y-1">
+                  {item.subRoutes.map((subItem) => (
+                    <Link
+                      key={subItem.name}
+                      to={subItem.path}
+                      className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                        location.pathname === subItem.path
+                          ? "bg-blue-500/30 text-gray-400"
+                          : "text-gray-400 hover:bg-blue-500/20"
+                      }`}
+                    >
+                      <i className={`${subItem.icon} w-4 h-4 mr-2`}></i>
+                      {!isSidebarCollapsed && <span>{subItem.name}</span>}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </nav>
         <div className="p-4 bg-slate-800">
