@@ -1,17 +1,18 @@
 import React from "react";
 import { useGetProfileInfoQuery } from "../../../redux/apis/user.api";
+import SSProfile from "../../ui-component/ss-profile/ss-profile";
+import { Link } from "react-router-dom";
 
 const FeatureProfileComponent = () => {
   const { data } = useGetProfileInfoQuery(undefined);
   return (
     <section className="bg-blue-500/10 rounded-lg shadow-sm p-6 mb-8">
       <div className="flex items-center mb-6">
-        {/* <img
-          className="h-16 w-16 rounded-full"
-          src="https://avatars.githubusercontent.com/u/76697055?v=4"
-          alt=""
-        /> */}
-        <div className="ml-0">
+        <SSProfile
+          name={data?.name as string}
+          imageUrl={data?.profile.avatar}
+        />
+        <div className="ml-4">
           <h3 className="text-lg font-semibold text-gray-300">{data?.name}</h3>
           <p className="text-sm text-gray-400">{data?.email}</p>
         </div>
@@ -38,9 +39,11 @@ const FeatureProfileComponent = () => {
           </div>
         </div>
       </div>
-      <button className="!rounded-button w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-        Generate Story <i className="fas fa-magic ml-2"></i>
-      </button>
+      <Link to="/stories">
+        <button className="!rounded-button w-full bg-indigo-700 text-white px-4 py-2 rounded-md hover:bg-indigo-800 cursor-pointer">
+          Generate Story <i className="fas fa-magic ml-2"></i>
+        </button>
+      </Link>
     </section>
   );
 };

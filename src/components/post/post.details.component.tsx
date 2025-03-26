@@ -8,6 +8,7 @@ import RelatedStoriesComponent from "./related.stories.view.component";
 import PostCommentComponent from "./post.comment.component";
 import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "../loading/loading.component";
+import SSProfile from "../ui-component/ss-profile/ss-profile";
 
 const PostDetailsComponent = () => {
   const navigate = useNavigate();
@@ -35,10 +36,9 @@ const PostDetailsComponent = () => {
           <div className="p-8">
             <div className="flex justify-between">
               <div className="flex items-center space-x-4 mb-6">
-                <img
-                  className="h-12 w-12 rounded-full object-cover"
-                  src="https://creatie.ai/ai/api/search-image?query=A professional headshot of a middle-aged man with glasses, wearing a business suit, against a neutral background. The image should be well-lit and appear natural and approachable.&width=96&height=96&orientation=squarish&flag=bdce0b6e-a662-474c-8096-05450e9a269d"
-                  alt="Author"
+                <SSProfile
+                  name={post?.author.name as string}
+                  size="h-12 w-12"
                 />
                 <div>
                   <h3 className="font-medium text-gray-400">

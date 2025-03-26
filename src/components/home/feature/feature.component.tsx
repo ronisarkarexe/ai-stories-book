@@ -1,6 +1,7 @@
 import { Post } from "../../../models/post";
 import { useGetFeaturedListsQuery } from "../../../redux/apis/post.api";
 import LoadingAnimation from "../../loading/loading.component";
+import SSProfile from "../../ui-component/ss-profile/ss-profile";
 
 const FeatureComponent = () => {
   const { data, isLoading } = useGetFeaturedListsQuery(undefined);
@@ -24,8 +25,8 @@ const FeatureComponent = () => {
               />
               <div className="p-6">
                 <div className="flex items-center mb-3">
-                  {/* <img className="h-8 w-8 rounded-full" src="" alt="" /> */}
-                  <div className="ml-0">
+                  <SSProfile name={post.author.name} size="h-8 w-8" />
+                  <div className="ml-4">
                     <p className="text-sm font-medium text-gray-400">
                       {post.author.name}
                     </p>

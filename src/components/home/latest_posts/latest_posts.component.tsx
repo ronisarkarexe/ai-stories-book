@@ -1,6 +1,7 @@
 import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
 import { Post } from "../../../models/post";
 import LoadingAnimation from "../../loading/loading.component";
+import SSProfile from "../../ui-component/ss-profile/ss-profile";
 
 const LatestPostsComponent = () => {
   const { data, isLoading } = useGetLatestListsQuery(undefined);
@@ -18,12 +19,8 @@ const LatestPostsComponent = () => {
               className="bg-blue-500/10 rounded-lg shadow-sm p-6"
             >
               <div className="flex items-center mb-4">
-                {/* <img
-                  className="h-10 w-10 rounded-full"
-                  src="https://avatars.githubusercontent.com/u/76697055?v=4"
-                  alt=""
-                /> */}
-                <div className="ml-0">
+                <SSProfile name={post.author.name} size="h-8 w-8" />
+                <div className="ml-4">
                   <p className="text-sm font-medium text-gray-400">
                     {post.author.name}
                   </p>
