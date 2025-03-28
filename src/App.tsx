@@ -23,6 +23,7 @@ import PostDetailsComponent from "./components/post/post.details.component";
 import { getUserInfo } from "./services/auth.service";
 import UserListComponent from "./components/dashboard/users/user.list.component";
 import NotFoundComponent from "./components/not-found.component";
+import EmailValidationComponent from "./components/email_validation/email.validation.component";
 
 const ProtectedRoute = ({
   element,
@@ -54,13 +55,6 @@ function App() {
           }
         />
 
-        {/* <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardComponent />} />
-          <Route path="components" element={<ComponentsComponent />} />
-          <Route path="settings" element={<SettingComponent />} />
-          <Route path="users" element={<UserComponent />} />
-          <Route path="writers" element={<WriterApplicationComponent />} />
-        </Route> */}
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardComponent />} />
@@ -107,6 +101,10 @@ function App() {
 
         <Route path="/stories" element={<StoriesComponent />} />
         <Route path="/login" element={<LoginComponent />} />
+        <Route
+          path="/auth/email-validation"
+          element={<EmailValidationComponent />}
+        />
         <Route path="/signup" element={<SignUpComponent />} />
         <Route path="/pricing" element={<PricingComponent />} />
         <Route path="/explore" element={<ExploreComponent />} />
