@@ -22,9 +22,9 @@ const LoginComponent = () => {
     setIsBusy(true);
     try {
       const res = await loginUser({ ...data }).unwrap();
-      if (res.accessToken) {
+      if (res.data.accessToken) {
         toast.success("User logged in successfully!");
-        storeUserInfo({ accessToken: res.accessToken });
+        storeUserInfo({ accessToken: res.data.accessToken });
         setIsLoggedIn(true);
       }
     } catch (err: unknown) {

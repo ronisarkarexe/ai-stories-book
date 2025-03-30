@@ -49,7 +49,7 @@ const StoriesComponent = () => {
         : await generateFreeModel(data).unwrap();
       if (res) {
         toast.success("Story generated successfully!");
-        setStories(res);
+        setStories(res.data as IStories[]);
         reset();
       }
     } catch {

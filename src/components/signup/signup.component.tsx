@@ -88,9 +88,9 @@ const SignUpComponent = () => {
     setIsBusy(true);
     try {
       const res = await registerUser({ ...registerInfo }).unwrap();
-      if (res.accessToken) {
+      if (res.data.accessToken) {
         toast.success("OTP validated successfully!");
-        storeUserInfo({ accessToken: res.accessToken });
+        storeUserInfo({ accessToken: res.data.accessToken });
         navigate("/");
       }
     } catch (err: unknown) {

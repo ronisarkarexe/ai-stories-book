@@ -1,3 +1,4 @@
+import { IStories } from "../../components/stories/stories.view.component";
 import baseApi from "../base_api/base.api";
 import { AI_MODEL_URL } from "../base_api/base.endpoints";
 import { tagTypes } from "../tag-types";
@@ -10,6 +11,9 @@ const aiModelApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
+      transformResponse: (response: { data: IStories[] }) => {
+        return { data: response.data };
+      },
       invalidatesTags: [tagTypes.model],
     }),
     generateFreeModel: build.mutation({
@@ -18,6 +22,9 @@ const aiModelApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
+      transformResponse: (response: { data: IStories[] }) => {
+        return { data: response.data };
+      },
       invalidatesTags: [tagTypes.model],
     }),
   }),
