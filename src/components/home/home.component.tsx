@@ -7,8 +7,10 @@ import ResourceComponent from "./resources/resources.component";
 import PricingComponent from "./pricing/pricing.component";
 import WriterFeedbackComponent from "./writer_feedback/writer_feedback.component";
 import StartWritingComponent from "./start_writing/start_writing.component";
+import { isLoggedIn } from "../../services/auth.service";
 
 const HomeComponent = () => {
+  const isLogin = isLoggedIn();
   return (
     <>
       <div className="grid grid-cols-12 gap-8 px-5 mb-10">
@@ -18,7 +20,7 @@ const HomeComponent = () => {
         </div>
         <div className="col-span-12 lg:col-span-4">
           <div className="sticky top-24">
-            <FeatureProfileComponent />
+            {isLogin && <FeatureProfileComponent />}
             <TrendingTopicComponent />
             <RecommendedWritersComponent />
           </div>
