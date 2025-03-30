@@ -24,6 +24,7 @@ import { getUserInfo } from "./services/auth.service";
 import UserListComponent from "./components/dashboard/users/user.list.component";
 import NotFoundComponent from "./components/not-found.component";
 import EmailValidationComponent from "./components/email_validation/email.validation.component";
+import { USER_ROLE } from "./constants/role";
 
 const ProtectedRoute = ({
   element,
@@ -33,12 +34,13 @@ const ProtectedRoute = ({
   allowedRoles: string[];
 }) => {
   const user = getUserInfo();
-  console.log("user role: " + user?.role);
-  return allowedRoles.includes(user?.role || "") ? (
-    element
-  ) : (
-    <Navigate to="/dashboard" />
-  );
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  return element;
 };
 
 function App() {
@@ -55,7 +57,6 @@ function App() {
           }
         />
 
-
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardComponent />} />
           <Route
@@ -63,7 +64,11 @@ function App() {
             element={
               <ProtectedRoute
                 element={<ComponentsComponent />}
-                allowedRoles={["user", "admin"]}
+                allowedRoles={[
+                  USER_ROLE.USER,
+                  USER_ROLE.ADMIN,
+                  USER_ROLE.SUPER_ADMIN,
+                ]}
               />
             }
           />
@@ -72,28 +77,53 @@ function App() {
             element={
               <ProtectedRoute
                 element={<SettingComponent />}
-                allowedRoles={["user", "admin"]}
+                allowedRoles={[
+                  USER_ROLE.USER,
+                  USER_ROLE.ADMIN,
+                  USER_ROLE.SUPER_ADMIN,
+                ]}
               />
             }
           />
-          <Route
-            path="users"
-            element={
-              <ProtectedRoute
-                element={<UserComponent />}
-                allowedRoles={["user", "admin"]}
-              />
-            }
-          >
-            <Route index element={<UserComponent />} />
-            <Route path="list" element={<UserListComponent />} />
+          <Route path="users">
+            <Route
+              index
+              element={
+                <ProtectedRoute
+                  element={<UserComponent />}
+                  allowedRoles={[
+                    USER_ROLE.USER,
+                    USER_ROLE.ADMIN,
+                    USER_ROLE.SUPER_ADMIN,
+                  ]}
+                />
+              }
+            />
+            <Route
+              path="list"
+              element={
+                <ProtectedRoute
+                  element={<UserListComponent />}
+                  allowedRoles={[
+                    USER_ROLE.USER,
+                    USER_ROLE.ADMIN,
+                    USER_ROLE.SUPER_ADMIN,
+                  ]}
+                />
+              }
+            />
           </Route>
           <Route
             path="writers"
             element={
               <ProtectedRoute
                 element={<WriterApplicationComponent />}
-                allowedRoles={["admin", "editor"]}
+                allowedRoles={[
+                  USER_ROLE.WRITER,
+                  USER_ROLE.ADMIN,
+                  USER_ROLE.SUPER_ADMIN,
+                  USER_ROLE.USER,
+                ]}
               />
             }
           />

@@ -1,4 +1,6 @@
-interface MenuItem {
+import { USER_ROLE } from "../../constants/role";
+
+export interface MenuItem {
   name: string;
   icon: string;
   path: string;
@@ -11,37 +13,56 @@ export const menuItems: MenuItem[] = [
     name: "Dashboard",
     icon: "fas fa-home",
     path: "/dashboard",
-    roles: ["admin", "user", "writer"],
+    roles: [
+      USER_ROLE.USER,
+      USER_ROLE.ADMIN,
+      USER_ROLE.SUPER_ADMIN,
+      USER_ROLE.WRITER,
+    ],
   },
   {
     name: "Components",
     icon: "fas fa-puzzle-piece",
     path: "/dashboard/components",
-    roles: ["admin", "user", "writer"],
+    roles: [
+      USER_ROLE.USER,
+      USER_ROLE.ADMIN,
+      USER_ROLE.SUPER_ADMIN,
+      USER_ROLE.WRITER,
+    ],
   },
   {
     name: "Settings",
     icon: "fas fa-cog",
     path: "/dashboard/settings",
-    roles: ["admin", "user", "writer"],
+    roles: [
+      USER_ROLE.USER,
+      USER_ROLE.ADMIN,
+      USER_ROLE.SUPER_ADMIN,
+      USER_ROLE.WRITER,
+    ],
   },
   {
     name: "Users",
     icon: "fas fa-users",
     path: "/dashboard/users",
-    roles: ["admin", "user", "writer"],
+    roles: [
+      USER_ROLE.USER,
+      USER_ROLE.ADMIN,
+      USER_ROLE.SUPER_ADMIN,
+      USER_ROLE.WRITER,
+    ],
     subRoutes: [
       {
         name: "User List",
         icon: "fas fa-users",
         path: "/dashboard/users/list",
-        roles: ["admin", "user"],
-      },
-      {
-        name: "User Profile",
-        icon: "fas fa-users",
-        path: "/dashboard/users/profile/:id",
-        roles: ["admin", "user", "writer"],
+        roles: [
+          USER_ROLE.USER,
+          USER_ROLE.ADMIN,
+          USER_ROLE.SUPER_ADMIN,
+          USER_ROLE.WRITER,
+        ],
       },
     ],
   },
@@ -49,6 +70,6 @@ export const menuItems: MenuItem[] = [
     name: "Writers",
     icon: "fas fa-pen",
     path: "/dashboard/writers",
-    roles: ["admin", "editor", "user"],
+    roles: [USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN, USER_ROLE.WRITER, USER_ROLE.USER],
   },
 ];

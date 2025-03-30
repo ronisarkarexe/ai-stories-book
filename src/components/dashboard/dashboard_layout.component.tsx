@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { menuItems } from "./dashboard.utils";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { MenuItem, menuItems } from "./dashboard.utils";
 import logo from "../../assets/logo.png";
 import { getUserInfo } from "../../services/auth.service";
 
@@ -8,23 +8,33 @@ const DashboardLayout: React.FC = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
   const location = useLocation();
+  const navigate = useNavigate();
   const user = getUserInfo();
 
   const currentPage = menuItems
-    .filter(
+    .flatMap((item) => (item.subRoutes ? [item, ...item.subRoutes] : [item]))
+    .find(
       (item) =>
         location.pathname === item.path ||
         location.pathname.startsWith(item.path + "/")
-    )
-    .sort((a, b) => b.path.length - a.path.length)[0];
-  const pageTitle = currentPage ? currentPage.name : "Dashboard";
+    );
+
+  const pageTitle = currentPage?.name || "Dashboard";
 
   const accessibleMenuItems = menuItems.filter((item) =>
-    item.roles.includes(user?.role || "")
+    item.roles.includes(user?.role || "user")
   );
 
   const toggleSubMenu = (name: string) => {
     setExpanded((prev) => ({ ...prev, [name]: !prev[name] }));
+  };
+
+  const handleNavigation = (item: MenuItem) => {
+    if (item.subRoutes) {
+      toggleSubMenu(item.name);
+    } else {
+      navigate(item.path);
+    }
   };
 
   return (
@@ -47,9 +57,7 @@ const DashboardLayout: React.FC = () => {
                     ? "bg-blue-500/30 text-gray-400"
                     : "text-gray-400 hover:bg-blue-500/20"
                 }`}
-                onClick={() =>
-                  item.subRoutes ? toggleSubMenu(item.name) : null
-                }
+                onClick={() => handleNavigation(item)}
               >
                 <div className="flex items-center">
                   <i className={`${item.icon} w-5 h-5 mr-2`}></i>
@@ -137,7 +145,7 @@ const DashboardLayout: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 p-4">
+        <div className="flex-1 p-4 overflow-auto">
           <Outlet />
         </div>
       </div>
