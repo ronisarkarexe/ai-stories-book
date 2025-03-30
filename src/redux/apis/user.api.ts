@@ -19,6 +19,10 @@ const userApi = baseApi.injectEndpoints({
         url: `/${USER_URL}/lists`,
         method: "GET",
       }),
+      transformResponse: (response: { data: User[]; message: string }) => {
+        return { data: response.data };
+      },
+
       providesTags: [tagTypes.user],
     }),
     getProfileInfo: build.query<User, void>({
