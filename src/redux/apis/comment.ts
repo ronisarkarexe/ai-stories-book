@@ -3,7 +3,7 @@ import baseApi from "../base_api/base.api";
 import { COMMENT_URL } from "../base_api/base.endpoints";
 import { tagTypes } from "../tag-types";
 
-const userApi = baseApi.injectEndpoints({
+const commentApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     createComment: build.mutation({
       query: (data) => ({
@@ -27,4 +27,4 @@ const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateCommentMutation, useGetCommentsListQuery } = userApi;
+export const { useCreateCommentMutation, useGetCommentsListQuery } = commentApi;
