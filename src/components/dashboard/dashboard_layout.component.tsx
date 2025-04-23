@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { MenuItem, menuItems } from "./dashboard.utils";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logoNew.png";
 import { getUserInfo } from "../../services/auth.service";
 
 const DashboardLayout: React.FC = () => {
@@ -44,9 +44,18 @@ const DashboardLayout: React.FC = () => {
           isSidebarCollapsed ? "w-20" : "w-64"
         } flex flex-col`}
       >
-        <div className="p-3 bg-slate-800">
+        <div className="p-3 bg-gradient-to-r from-slate-700 via-slate-800 to-slate-900 border-b border-slate-600 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Link to="/">
+              <button className="text-gray-400 text-xl cursor-pointer hover:text-gray-500">
+                <i className="fas fa-arrow-left"></i>
+              </button>
+            </Link>
+          </div>
           <img src={logo} alt="Logo" className="h-8 mx-auto" />
+          <div className="w-6"></div>
         </div>
+
         <nav className="flex-1 p-4 space-y-1">
           {accessibleMenuItems.map((item) => (
             <div key={item.name}>
