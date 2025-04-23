@@ -1,4 +1,4 @@
-interface Topic {
+export interface Topic {
   title: string;
   color: string;
   selected: boolean;

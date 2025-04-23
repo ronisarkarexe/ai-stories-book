@@ -21,20 +21,9 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    name: "Components",
+    name: "Post Lists",
     icon: "fas fa-puzzle-piece",
-    path: "/dashboard/components",
-    roles: [
-      USER_ROLE.USER,
-      USER_ROLE.ADMIN,
-      USER_ROLE.SUPER_ADMIN,
-      USER_ROLE.WRITER,
-    ],
-  },
-  {
-    name: "Settings",
-    icon: "fas fa-cog",
-    path: "/dashboard/settings",
+    path: "/dashboard/post-lists",
     roles: [
       USER_ROLE.USER,
       USER_ROLE.ADMIN,
@@ -67,9 +56,14 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    name: "Writers",
-    icon: "fas fa-pen",
-    path: "/dashboard/writers",
-    roles: [USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN, USER_ROLE.WRITER, USER_ROLE.USER],
+    name: "Settings",
+    icon: "fas fa-cog",
+    path: "/dashboard/settings",
+    roles: [
+      USER_ROLE.USER,
+      USER_ROLE.ADMIN,
+      USER_ROLE.SUPER_ADMIN,
+      USER_ROLE.WRITER,
+    ],
   },
 ];

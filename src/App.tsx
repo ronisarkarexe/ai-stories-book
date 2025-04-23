@@ -13,7 +13,6 @@ import DashboardComponent from "./components/dashboard/dashboard.component";
 import RootLayout from "./components/layout/root_layout.component";
 import DashboardLayout from "./components/dashboard/dashboard_layout.component";
 import SettingComponent from "./components/dashboard/settings/settings.component";
-import ComponentsComponent from "./components/dashboard/components/components.component";
 import StoriesComponent from "./components/stories/stories.component";
 import WriterApplicationComponent from "./components/dashboard/writers/writer_application.component";
 import UserComponent from "./components/dashboard/users/user.component";
@@ -25,6 +24,7 @@ import UserListComponent from "./components/dashboard/users/user.list.component"
 import NotFoundComponent from "./components/not-found.component";
 import EmailValidationComponent from "./components/email_validation/email.validation.component";
 import { USER_ROLE } from "./constants/role";
+import PostListsComponent from "./components/dashboard/posts/post_lists.component";
 
 const ProtectedRoute = ({
   element,
@@ -60,10 +60,10 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardComponent />} />
           <Route
-            path="components"
+            path="post-lists"
             element={
               <ProtectedRoute
-                element={<ComponentsComponent />}
+                element={<PostListsComponent />}
                 allowedRoles={[
                   USER_ROLE.USER,
                   USER_ROLE.ADMIN,
