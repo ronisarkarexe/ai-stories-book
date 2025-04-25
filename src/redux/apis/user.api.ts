@@ -37,6 +37,14 @@ const userApi = baseApi.injectEndpoints({
       }) => response.data,
       providesTags: [tagTypes.user],
     }),
+    updateProfile: build.mutation({
+      query: (data) => ({
+        url: `/${USER_URL}/update`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.user],
+    }),
   }),
 });
 
@@ -44,4 +52,5 @@ export const {
   useApplyForWriterMutation,
   useGetUsersListQuery,
   useGetProfileInfoQuery,
+  useUpdateProfileMutation,
 } = userApi;
