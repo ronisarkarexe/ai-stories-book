@@ -8,6 +8,7 @@ import { isLoggedIn } from "../../services/auth.service";
 import toast, { Toaster } from "react-hot-toast";
 import SSProfile from "../ui-component/ss-profile/ss-profile";
 import { timeAgo } from "../../utils/time-formate";
+import { getErrorMessage } from "../../error/error.message";
 
 type Inputs = {
   comment: string;
@@ -48,7 +49,7 @@ const PostCommentComponent: React.FC<IPostCommentComponentProps> = ({
         reset();
       }
     } catch (err: unknown) {
-      console.log("error: ", err);
+      toast.error(getErrorMessage(err));
     } finally {
       setIsBusy(false);
     }
@@ -85,7 +86,9 @@ const PostCommentComponent: React.FC<IPostCommentComponentProps> = ({
             <div className="flex-1">
               <div className=" rounded-lg p-4 border border-gray-400">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium text-blue-700">{comment.userId.name}</h4>
+                  <h4 className="font-medium text-blue-700">
+                    {comment.userId.name}
+                  </h4>
                   <span className="text-sm text-gray-500">
                     {timeAgo(comment.createdAt)}
                   </span>

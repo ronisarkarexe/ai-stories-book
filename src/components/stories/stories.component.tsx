@@ -10,7 +10,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useGetProfileInfoQuery } from "../../redux/apis/user.api";
-import { NetworkErrorResponse } from "../../types";
+import { getErrorMessage } from "../../error/error.message";
 
 type Inputs = {
   prompt: string;
@@ -57,9 +57,7 @@ const StoriesComponent = () => {
         reset();
       }
     } catch (error: unknown) {
-      if (error && typeof error === "object" && "data" in error) {
-        toast.error((error as NetworkErrorResponse).data);
-      }
+      toast.error(getErrorMessage(error));
     } finally {
       setLoading(false);
     }

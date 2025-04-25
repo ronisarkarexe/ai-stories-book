@@ -1,7 +1,7 @@
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
-import type { AxiosRequestConfig, AxiosError } from "axios";
+import type { AxiosRequestConfig } from "axios";
 import { instance as AxiosInstance } from "./axionInstance";
-import { IMeta } from "../../types";
+import { IMeta, ResponseErrorType } from "../../types";
 
 const axiosBaseQuery =
   (
@@ -36,11 +36,11 @@ const axiosBaseQuery =
         message: result.data.message,
       };
     } catch (axiosError) {
-      const err = axiosError as AxiosError;
+      const err = axiosError as ResponseErrorType;
       return {
         error: {
-          status: err.response?.status,
-          data: err.response?.data || err.message,
+          status: err.statusCode,
+          data: err.errorMessages || [{ path: "", message: err.message }],
         },
       };
     }

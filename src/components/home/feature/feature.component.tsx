@@ -1,5 +1,6 @@
 import { Post } from "../../../models/post";
 import { useGetFeaturedListsQuery } from "../../../redux/apis/post.api";
+import { formatDateShort } from "../../../utils/time-formate";
 import LoadingAnimation from "../../loading/loading.component";
 import SSProfile from "../../ui-component/ss-profile/ss-profile";
 
@@ -30,7 +31,9 @@ const FeatureComponent = () => {
                     <p className="text-sm font-medium text-gray-400">
                       {post.author.name}
                     </p>
-                    <p className="text-xs text-gray-500">Mar 16, 2024</p>
+                    <p className="text-xs text-gray-500">
+                      {formatDateShort(post.createdAt)}
+                    </p>
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-300 mb-2">
