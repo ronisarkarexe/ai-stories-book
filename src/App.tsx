@@ -25,6 +25,7 @@ import NotFoundComponent from "./components/not-found.component";
 import EmailValidationComponent from "./components/email_validation/email.validation.component";
 import { USER_ROLE } from "./constants/role";
 import PostListsComponent from "./components/dashboard/posts/post_lists.component";
+import ProfileComponent from "./components/dashboard/profile/profile.component";
 
 const ProtectedRoute = ({
   element,
@@ -78,6 +79,15 @@ function App() {
             element={
               <ProtectedRoute
                 element={<SettingComponent />}
+                allowedRoles={[USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN]}
+              />
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute
+                element={<ProfileComponent />}
                 allowedRoles={[
                   USER_ROLE.USER,
                   USER_ROLE.ADMIN,

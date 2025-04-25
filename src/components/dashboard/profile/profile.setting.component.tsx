@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { User } from "../../../models/user";
 
-interface UserSettingsProps {
+interface ProfileSettingComponentProps {
   user: User;
   onSave: (updatedUser: Partial<User>) => void;
   loading: boolean;
 }
 
-export const UserSettings = ({ user, onSave, loading }: UserSettingsProps) => {
+export const ProfileSettingComponent = ({ user, onSave, loading }: ProfileSettingComponentProps) => {
   const [formData, setFormData] = useState({
     name: user.name,
     bio: user.profile?.bio || "",

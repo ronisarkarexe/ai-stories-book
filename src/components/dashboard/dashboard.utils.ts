@@ -59,6 +59,12 @@ export const menuItems: MenuItem[] = [
     name: "Settings",
     icon: "fas fa-cog",
     path: "/dashboard/settings",
+    roles: [USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN],
+  },
+  {
+    name: "Profile",
+    icon: "fas fa-cog",
+    path: "/dashboard/profile",
     roles: [
       USER_ROLE.USER,
       USER_ROLE.ADMIN,
