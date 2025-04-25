@@ -6,6 +6,8 @@ import {
 } from "../../redux/apis/comment";
 import { isLoggedIn } from "../../services/auth.service";
 import toast, { Toaster } from "react-hot-toast";
+import SSProfile from "../ui-component/ss-profile/ss-profile";
+import { timeAgo } from "../../utils/time-formate";
 
 type Inputs = {
   comment: string;
@@ -79,14 +81,16 @@ const PostCommentComponent: React.FC<IPostCommentComponentProps> = ({
       <div className="space-y-6">
         {commentList?.comments.map((comment) => (
           <div className="flex space-x-4">
-            <img src="" alt="Commenter" className="w-10 h-10 rounded-full" />
+            <SSProfile name={comment?.userId.name as string} size="w-10 h-10" />
             <div className="flex-1">
-              <div className="bg-slate-900 rounded-lg p-4">
+              <div className=" rounded-lg p-4 border border-gray-400">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium">{comment.userId.name}</h4>
-                  <span className="text-sm text-gray-500">2 hours ago</span>
+                  <h4 className="font-medium text-blue-700">{comment.userId.name}</h4>
+                  <span className="text-sm text-gray-500">
+                    {timeAgo(comment.createdAt)}
+                  </span>
                 </div>
-                <p className="text-gray-600">{comment.comment}</p>
+                <p className="text-gray-500">{comment.comment}</p>
               </div>
               <div className="flex items-center mt-2 space-x-4 text-sm text-gray-500">
                 <button className="hover:text-custom">

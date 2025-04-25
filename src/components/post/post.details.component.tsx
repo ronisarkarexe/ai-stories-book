@@ -9,6 +9,7 @@ import PostCommentComponent from "./post.comment.component";
 import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "../loading/loading.component";
 import SSProfile from "../ui-component/ss-profile/ss-profile";
+import { formatDateShort } from "../../utils/time-formate";
 
 const PostDetailsComponent = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const PostDetailsComponent = () => {
                     {post?.author.name}
                   </h3>
                   <div className="flex items-center text-sm text-gray-500">
-                    <span>Mar 15, 2024</span>
+                    <span>{formatDateShort(post ? post?.createdAt : "")}</span>
                   </div>
                 </div>
               </div>
