@@ -11,8 +11,8 @@ const aiModelApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      transformResponse: (response: { data: IStories[] }) => {
-        return { data: response.data };
+      transformResponse: (response: { data: IStories[]; message: string }) => {
+        return { data: response.data, message: response.message };
       },
       invalidatesTags: [tagTypes.model],
     }),
@@ -22,8 +22,8 @@ const aiModelApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      transformResponse: (response: { data: IStories[] }) => {
-        return { data: response.data };
+      transformResponse: (response: { data: IStories[]; message: string }) => {
+        return { data: response.data, message: response.message };
       },
       invalidatesTags: [tagTypes.model],
     }),

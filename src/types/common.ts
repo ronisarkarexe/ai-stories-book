@@ -30,3 +30,8 @@ export interface IParams {
     id: string;
   };
 }
+
+export interface NetworkErrorResponse {
+  status: number | undefined;
+  data: string;
+}

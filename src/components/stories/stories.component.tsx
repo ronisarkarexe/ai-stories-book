@@ -10,6 +10,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useGetProfileInfoQuery } from "../../redux/apis/user.api";
+import { NetworkErrorResponse } from "../../types";
 
 type Inputs = {
   prompt: string;
@@ -48,12 +49,17 @@ const StoriesComponent = () => {
         ? await generateModel(data).unwrap()
         : await generateFreeModel(data).unwrap();
       if (res) {
-        toast.success("Story generated successfully!");
+        toast.success(res.message);
         setStories(res.data as IStories[]);
+        setSelectedPrompt("");
+        setTextareaValue("");
+        setValue("prompt", "");
         reset();
       }
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "data" in error) {
+        toast.error((error as NetworkErrorResponse).data);
+      }
     } finally {
       setLoading(false);
     }
@@ -111,7 +117,7 @@ const StoriesComponent = () => {
 
         <div className="mt-11">
           <h1 className="text-gray-300 text-4xl font-extrabold text-center mb-12 leading-snug drop-shadow-lg tracking-wide">
-            ✨ One Prompt, Endless Stories –{" "}
+            ✨ Enter Prompt –{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-400">
               Generate Story Today!
             </span>{" "}

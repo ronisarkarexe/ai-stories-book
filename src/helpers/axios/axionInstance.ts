@@ -31,11 +31,36 @@ instance.interceptors.response.use(
     return response;
   },
   function (error) {
-    const errorObject: ResponseErrorType = {
-      statusCode: error.response?.data?.statusCode || 500,
-      message: error.response?.data?.message || "Something went wrong!",
-      errorMessages: error.response?.data?.errorMessages || [],
-    };
+    let errorObject: ResponseErrorType;
+    if (error.code === "ERR_NETWORK") {
+      errorObject = {
+        statusCode: 503,
+        message: "Network Error - Unable to connect to the server",
+        errorMessages: [
+          {
+            path: "",
+            message: "Please check your internet connection and try again",
+          },
+        ],
+      };
+    } else if (error.response) {
+      errorObject = {
+        statusCode: error.response.data?.statusCode || 500,
+        message: error.response.data?.message || "Something went wrong!",
+        errorMessages: error.response.data?.errorMessages || [],
+      };
+    } else {
+      errorObject = {
+        statusCode: 500,
+        message: error.message || "Something went wrong!",
+        errorMessages: [
+          {
+            path: "",
+            message: "An unexpected error occurred",
+          },
+        ],
+      };
+    }
     return Promise.reject(errorObject);
   }
 );
