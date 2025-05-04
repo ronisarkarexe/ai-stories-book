@@ -51,12 +51,6 @@
 - Users can search for developers based on specific skills, making it easy to find issues with expertise in a particular technology or programming language.
 - This makes **`StorySparkAi`** a valuable resource for project managers, showcase and anyone looking to connect with skilled developers for collaboration or employment opportunities.
 
-<a id="how-to-add-your-profile-data"></a>
-
-## How to add your profile Data 🤔
-
-> Thank you for your interest in contributing to our open-source project! <br>
-
 <a id="prerequisites"></a>
 
 ### Prerequisites
@@ -124,7 +118,7 @@ Node.js is a JavaScript runtime environment that allows you to run JavaScript co
 
 By following these steps, you have successfully installed Node.js and npm on your system. You are now ready to start building JavaScript applications and managing dependencies with npm.
 
-### Steps to Add Your Profile Data
+### Steps to Setup Project
 
 1. **Fork the repository:** To create a copy of the repository in your GitHub account, click on the "Fork" button in the top right corner of the project repository page.
 2. **Clone the forked repository:** To clone the repository to your local development environment, open the terminal or command prompt and run the following command:
