@@ -153,6 +153,15 @@ By following these steps, you have successfully installed Node.js and npm on you
 
 Once your changes are merged, your project data will be added to the project's **`contributors.json`** file and your project will be displayed on the project's website.
 
+### Steps to env
+
+
+1. **Create env file:**  .env add 
+   ```bash
+    VITE_BASE_URL=https://ai-stories-book-backend.vercel.app/api/v1
+   ```
+
+
 <a id="contributing"></a>
 
 ## Contributing 👨‍💻
